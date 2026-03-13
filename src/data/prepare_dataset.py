@@ -5,15 +5,15 @@ AGG_OPS = ["", "MAX", "MIN", "COUNT", "SUM", "AVG"]
 COND_OPS = ["=", ">", "<"]
 
 
-def build_sql_string(sql: dict, columns: list[str]) -> str:
+def build_sql_string(sql: dict, columns: list[str], types: list[str] = None) -> str:
     """Convert WikiSQL structured SQL dict to a human-readable SQL string."""
     agg = AGG_OPS[sql["agg"]]
     sel_col = columns[sql["sel"]]
 
     if agg:
-        select_clause = f"SELECT {agg}({sel_col})"
+        select_clause = f"SELECT {agg}(`{sel_col}`)"
     else:
-        select_clause = f"SELECT {sel_col}"
+        select_clause = f"SELECT `{sel_col}`"
 
     where_clauses = []
     for col_idx, op_idx, cond in zip(
@@ -23,7 +23,18 @@ def build_sql_string(sql: dict, columns: list[str]) -> str:
     ):
         col = columns[col_idx]
         op = COND_OPS[op_idx]
-        where_clauses.append(f"`{col}` {op} '{cond}'")
+        col_type = types[col_idx] if types else "text"
+
+        if col_type in ("real", "number"):
+            # Remove commas from numbers e.g. "46,735" → "46735"
+            cleaned_cond = str(cond).replace(",", "")
+            try:
+                float(cleaned_cond)  # validate it's actually a number
+                where_clauses.append(f"`{col}` {op} {cleaned_cond}")
+            except ValueError:
+                # Fallback: treat as text if it doesn't parse as a number
+                escaped_cond = str(cond).replace("'", "''")
+                where_clauses.append(f"`{col}` {op} '{escaped_cond}'")
 
     if where_clauses:
         where_clause = " WHERE " + " AND ".join(where_clauses)
@@ -54,7 +65,7 @@ def convert_example(example: dict) -> dict:
     sql = example["sql"]
 
     prompt = format_prompt(question, columns, types)
-    completion = build_sql_string(sql, columns)
+    completion = build_sql_string(sql, columns, types)  # pass types here
 
     return {"prompt": prompt, "completion": completion, "text": prompt + completion}
 
