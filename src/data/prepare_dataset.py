@@ -35,6 +35,10 @@ def build_sql_string(sql: dict, columns: list[str], types: list[str] = None) -> 
                 # Fallback: treat as text if it doesn't parse as a number
                 escaped_cond = str(cond).replace("'", "''")
                 where_clauses.append(f"`{col}` {op} '{escaped_cond}'")
+        else:
+            # Text-type condition
+            escaped_cond = str(cond).replace("'", "''")
+            where_clauses.append(f"`{col}` {op} '{escaped_cond}'")
 
     if where_clauses:
         where_clause = " WHERE " + " AND ".join(where_clauses)
@@ -75,7 +79,7 @@ def prepare_and_save(output_dir: str = "data/processed") -> None:
     import os
     os.makedirs(output_dir, exist_ok=True)
 
-    ds = load_dataset("Salesforce/wikisql", trust_remote_code=True)
+    ds = load_dataset("Salesforce/wikisql")
 
     for split in ["train", "validation", "test"]:
         output_path = f"{output_dir}/{split}.jsonl"

@@ -1,4 +1,11 @@
 import json
+import os
+import sys
+
+# Ensure the project root is on sys.path so src.* imports work
+# whether this file is run directly or imported as a module
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
 from src.data.sql_executor import execute_sql
 from src.data.prepare_dataset import build_sql_string
 
@@ -72,10 +79,9 @@ def evaluate_dataset(predictions: list[str], dataset: list[dict]) -> dict:
 if __name__ == "__main__":
     # Quick sanity check using gold SQL as predictions (should get 100%)
     from datasets import load_dataset
-    from src.data.prepare_dataset import build_sql_string
 
     print("Loading dataset...")
-    ds = load_dataset("Salesforce/wikisql", trust_remote_code=True)
+    ds = load_dataset("Salesforce/wikisql")
     examples = list(ds["test"].select(range(100)))
 
     # Use gold SQL as predictions — should give 100% accuracy
