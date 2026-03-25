@@ -1,0 +1,32 @@
+{
+  "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+  "adapter": "oLittle-five/llama3-8b-wikisql-qlora",
+  "dataset": "wikisql",
+  "epochs": 3,
+  "best_epoch": 1,
+  "results": [
+    {
+      "epoch": 1,
+      "train_loss": 0.497181,
+      "val_loss": 0.620473
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.403196,
+      "val_loss": 0.630884
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.340801,
+      "val_loss": 0.678062
+    }
+  ],
+  "hyperparameters": {
+    "lora_r": 16,
+    "lora_alpha": 32,
+    "learning_rate": 0.0002,
+    "batch_size": 16,
+    "gradient_accumulation_steps": 2,
+    "max_seq_length": 256
+  }
+}
