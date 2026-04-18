@@ -1,0 +1,87 @@
+{
+  "model": "meta-llama/Meta-Llama-3-8B-Instruct",
+  "adapter": "oLittle-five/llama3-8b-wikisql-qlora-v2",
+  "version": "v2",
+  "dataset": "wikisql",
+  "changes_from_v1": [
+    "Fixed chat-template mismatch via formatting_func",
+    "learning_rate 2e-4 \u2192 1e-4",
+    "lora_alpha 32 \u2192 16",
+    "num_epochs 3 \u2192 2",
+    "warmup_steps 200 added",
+    "eval_strategy epoch \u2192 steps/500"
+  ],
+  "hyperparameters": {
+    "lora_r": 16,
+    "lora_alpha": 16,
+    "learning_rate": 0.0001,
+    "per_device_train_batch_size": 4,
+    "gradient_accumulation_steps": 4,
+    "effective_batch_size": 16,
+    "max_seq_length": 512,
+    "warmup_steps": 200,
+    "num_epochs": 2
+  },
+  "results": [
+    {
+      "step": 500,
+      "epoch": 0.2838489923360772,
+      "val_loss": 0.6914851665496826,
+      "train_loss": 0.6807004547119141
+    },
+    {
+      "step": 1000,
+      "epoch": 0.5676979846721544,
+      "val_loss": 0.6501184105873108,
+      "train_loss": 0.5979202651977539
+    },
+    {
+      "step": 1500,
+      "epoch": 0.8515469770082317,
+      "val_loss": 0.6383063793182373,
+      "train_loss": 0.5690902709960938
+    },
+    {
+      "step": 2000,
+      "epoch": 1.1351121203519727,
+      "val_loss": 0.6352378726005554,
+      "train_loss": 0.49236968994140623
+    },
+    {
+      "step": 2500,
+      "epoch": 1.41896111268805,
+      "val_loss": 0.6344555616378784,
+      "train_loss": 0.47648555755615235
+    },
+    {
+      "step": 3000,
+      "epoch": 1.702810105024127,
+      "val_loss": 0.6332416534423828,
+      "train_loss": 0.46703861236572264
+    },
+    {
+      "step": 3500,
+      "epoch": 1.9866590973602043,
+      "val_loss": 0.6310599446296692,
+      "train_loss": 0.4576587677001953
+    },
+    {
+      "step": 4000,
+      "epoch": 2.2702242407039455,
+      "val_loss": 0.6465755701065063,
+      "train_loss": 0.41640438079833986
+    },
+    {
+      "step": 4500,
+      "epoch": 2.5540732330400227,
+      "val_loss": 0.6518303155899048,
+      "train_loss": 0.41204151153564456
+    },
+    {
+      "step": 5000,
+      "epoch": 2.8379222253761,
+      "val_loss": 0.6524445414543152,
+      "train_loss": 0.40330665588378906
+    }
+  ]
+}

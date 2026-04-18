@@ -1,17 +1,26 @@
 import sqlite3
 
 
-def build_db(table: dict) -> sqlite3.Connection:
-    """Create an in-memory SQLite database from a WikiSQL table."""
+def build_db(table: dict, case_insensitive: bool = False) -> sqlite3.Connection:
+    """
+    Create an in-memory SQLite database from a WikiSQL table.
+
+    Args:
+        table: WikiSQL table dict with 'header', 'types', 'rows'
+        case_insensitive: if True, text columns are created with
+            `COLLATE NOCASE` so that `=` comparisons ignore letter case.
+            Used for the V1.5 post-processing ablation.
+    """
     conn = sqlite3.connect(":memory:")
     cursor = conn.cursor()
 
     headers = table["header"]
     types = table["types"]
 
-    type_map = {"text": "TEXT", "number": "REAL", "real": "REAL"}
+    text_type = "TEXT COLLATE NOCASE" if case_insensitive else "TEXT"
+    type_map = {"text": text_type, "number": "REAL", "real": "REAL"}
     col_defs = ", ".join(
-        f'`{col}` {type_map.get(t, "TEXT")}'
+        f'`{col}` {type_map.get(t, text_type)}'
         for col, t in zip(headers, types)
     )
     cursor.execute(f"CREATE TABLE data ({col_defs})")
@@ -22,7 +31,7 @@ def build_db(table: dict) -> sqlite3.Connection:
         for val, col_type in zip(row, types):
             if col_type in ("real", "number"):
                 try:
-                    converted.append(float(val))
+                    converted.append(float(str(val).replace(",", "")))
                 except (ValueError, TypeError):
                     converted.append(val)
             else:
@@ -34,9 +43,20 @@ def build_db(table: dict) -> sqlite3.Connection:
     return conn
 
 
-def execute_sql(table: dict, sql: str) -> tuple[list, str | None]:
+def execute_sql(
+    table: dict,
+    sql: str,
+    case_insensitive: bool = False,
+) -> tuple[list, str | None]:
     """
     Execute a SQL query against an in-memory SQLite DB.
+
+    Args:
+        table: WikiSQL table dict
+        sql: SQL query string (uses `FROM table`; will be rewritten to `FROM data`)
+        case_insensitive: if True, text columns use `COLLATE NOCASE` so that
+            `=` comparisons ignore letter case. Default False preserves the
+            original case-sensitive behavior used in all pre-V1.5 results.
 
     Returns:
         (results, error): results is a list of rows, error is None if successful
@@ -45,7 +65,7 @@ def execute_sql(table: dict, sql: str) -> tuple[list, str | None]:
     sql = sql.replace("FROM table", "FROM data")
 
     try:
-        conn = build_db(table)
+        conn = build_db(table, case_insensitive=case_insensitive)
         cursor = conn.cursor()
         cursor.execute(sql)
         results = cursor.fetchall()

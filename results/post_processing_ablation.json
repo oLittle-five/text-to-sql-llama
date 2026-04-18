@@ -1,0 +1,30 @@
+{
+  "experiment": "V1.5 post-processing ablation",
+  "description": "Re-evaluate saved predictions with TEXT COLLATE NOCASE executor",
+  "n_examples": 500,
+  "base_model": {
+    "case_sensitive": {
+      "execution_accuracy": 0.372,
+      "syntax_error_rate": 0.218,
+      "correct": 186
+    },
+    "case_insensitive": {
+      "execution_accuracy": 0.396,
+      "syntax_error_rate": 0.218,
+      "correct": 198
+    }
+  },
+  "v1_fixed": {
+    "case_sensitive": {
+      "execution_accuracy": 0.518,
+      "syntax_error_rate": 0.054,
+      "correct": 259
+    },
+    "case_insensitive": {
+      "execution_accuracy": 0.682,
+      "syntax_error_rate": 0.054,
+      "correct": 341
+    },
+    "flipped_wrong_to_correct": 82
+  }
+}

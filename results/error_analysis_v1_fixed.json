@@ -1,0 +1,1740 @@
+{
+  "model": "v1_fixed (51.8% exec accuracy)",
+  "total": 500,
+  "summary": {
+    "multiple_errors": 71,
+    "wrong_where_col": 7,
+    "wrong_where_val": 47,
+    "syntax_error": 27,
+    "wrong_result_other": 52,
+    "wrong_column": 26,
+    "wrong_agg": 10,
+    "extra_where": 1,
+    "correct": 259
+  },
+  "accuracy_by_where_conditions": {
+    "1": {
+      "correct": 241,
+      "total": 457
+    },
+    "0": {
+      "correct": 8,
+      "total": 11
+    },
+    "2": {
+      "correct": 10,
+      "total": 31
+    },
+    "3": {
+      "correct": 0,
+      "total": 1
+    }
+  },
+  "accuracy_by_aggregation": {
+    "NONE": {
+      "correct": 188,
+      "total": 356
+    },
+    "COUNT": {
+      "correct": 41,
+      "total": 97
+    },
+    "MIN": {
+      "correct": 17,
+      "total": 25
+    },
+    "MAX": {
+      "correct": 13,
+      "total": 22
+    }
+  },
+  "per_example": [
+    {
+      "index": 4,
+      "category": "multiple_errors",
+      "question": "Where was Assen held?",
+      "predicted_sql": "SELECT `Circuit` FROM table WHERE `Date` = 'Assen'",
+      "gold_sql": "SELECT `Round` FROM table WHERE `Circuit` = 'Assen'"
+    },
+    {
+      "index": 5,
+      "category": "wrong_where_col",
+      "question": "What was the number of race that Kevin Curtain won?",
+      "predicted_sql": "SELECT COUNT(`No`) FROM table WHERE `Race Winner` = 'Kevin Curran'",
+      "gold_sql": "SELECT COUNT(`No`) FROM table WHERE `Pole Position` = 'Kevin Curtain'"
+    },
+    {
+      "index": 6,
+      "category": "wrong_where_val",
+      "question": "What was the date of the race in Misano?",
+      "predicted_sql": "SELECT `Date` FROM table WHERE `Circuit` = 'Misa`No`'",
+      "gold_sql": "SELECT `Date` FROM table WHERE `Circuit` = 'Misano'"
+    },
+    {
+      "index": 13,
+      "category": "wrong_where_val",
+      "question": "What's the pick number of the player from Springfield Olympics (Nejhl)?",
+      "predicted_sql": "SELECT `Pick` FROM table WHERE `College/junior/club team` = 'Springfield Olympiques (NEJHL)'",
+      "gold_sql": "SELECT `Pick` FROM table WHERE `College/junior/club team` = 'Springfield Olympics (NEJHL)'"
+    },
+    {
+      "index": 19,
+      "category": "multiple_errors",
+      "question": "Give me a list of all spanish officer titles that could receive recognition as group captain in english",
+      "predicted_sql": "SELECT `Rank in Spanish` FROM table WHERE `Equivalent NATO Rank Code` = 'Group Captain'",
+      "gold_sql": "SELECT `Rank in English` FROM table WHERE `Commonwealth equivalent` = 'Group Captain'"
+    },
+    {
+      "index": 22,
+      "category": "multiple_errors",
+      "question": "If you get a ranking as major in the  english military then what would the spanish military address you as? ",
+      "predicted_sql": "SELECT `Rank in Spanish` FROM table WHERE `Equivalent NATO Rank Code` = 'Major'",
+      "gold_sql": "SELECT `Rank in Spanish` FROM table WHERE `Rank in English` = 'Major'"
+    },
+    {
+      "index": 25,
+      "category": "syntax_error",
+      "question": "What rank was Bryan Danielson in this chart?",
+      "predicted_sql": "SELECT `Rank` FROM table WHERE `Wrestler` = 'Bryan Danielson'",
+      "gold_sql": "SELECT `Rank Each wrestlers total number of days as champion are ranked highest to lowest; wrestlers with the same number mean that they are tied for that certain rank.` FROM table WHERE `Wrestler` = 'Bryan Danielson'"
+    },
+    {
+      "index": 27,
+      "category": "syntax_error",
+      "question": "What was Go Shiozaki's rank?",
+      "predicted_sql": "SELECT `Rank` FROM table WHERE `Wrestler` = 'Go Shiozaki'",
+      "gold_sql": "SELECT MIN(`Rank Each wrestlers total number of days as champion are ranked highest to lowest; wrestlers with the same number mean that they are tied for that certain rank.`) FROM table WHERE `Wrestler` = 'Go Shiozaki'"
+    },
+    {
+      "index": 28,
+      "category": "wrong_where_val",
+      "question": "Which province is grey and bell electorate in",
+      "predicted_sql": "SELECT `Province` FROM table WHERE `Electorate` = 'grey and bell'",
+      "gold_sql": "SELECT `Province` FROM table WHERE `Electorate` = 'Grey and Bell'"
+    },
+    {
+      "index": 29,
+      "category": "wrong_result_other",
+      "question": "Which province is bay of islands in",
+      "predicted_sql": "SELECT `Province` FROM table WHERE `Electorate` = 'Bay Of Islands'",
+      "gold_sql": "SELECT `Province` FROM table WHERE `Electorate` = 'Bay of Islands'"
+    },
+    {
+      "index": 30,
+      "category": "wrong_where_val",
+      "question": "what is the total number of\u00a0total w\u2013l\u00a0where\u00a0doubles w\u2013l\u00a0is 11\u201311",
+      "predicted_sql": "SELECT COUNT(`Total W\u2013L`) FROM table WHERE `Doubles W\u2013L` = '11-11'",
+      "gold_sql": "SELECT COUNT(`Total W\u2013L`) FROM table WHERE `Doubles W\u2013L` = '11\u201311'"
+    },
+    {
+      "index": 31,
+      "category": "wrong_where_val",
+      "question": "what is the total number of\u00a0singles w\u2013l\u00a0where\u00a0doubles w\u2013l\u00a0is 11\u201314",
+      "predicted_sql": "SELECT COUNT(`Singles W\u2013L`) FROM table WHERE `Doubles W\u2013L` = '11-14'",
+      "gold_sql": "SELECT COUNT(`Singles W\u2013L`) FROM table WHERE `Doubles W\u2013L` = '11\u201314'"
+    },
+    {
+      "index": 32,
+      "category": "multiple_errors",
+      "question": " what's the\u00a0total w\u2013l\u00a0where\u00a0player\u00a0is boro jovanovi\u0107 category:articles with hcards",
+      "predicted_sql": "SELECT `Total W\u2013L` FROM table WHERE `Player` = 'Bor\u00f3 Jovani\u010d Category:Articles with HCards'",
+      "gold_sql": "SELECT `Total W\u2013L` FROM table WHERE `Player` = 'Boro Jovanovi\u0107 Category:Articles with hCards'"
+    },
+    {
+      "index": 33,
+      "category": "wrong_result_other",
+      "question": "what is the maximum\u00a0ties played\u00a0where\u00a0player\u00a0is josip palada category:articles with hcards",
+      "predicted_sql": "SELECT MAX(`Ties played`) FROM table WHERE `Player` = 'Josip Palada Category:Articles With HCards'",
+      "gold_sql": "SELECT MAX(`Ties played`) FROM table WHERE `Player` = 'Josip Palada Category:Articles with hCards'"
+    },
+    {
+      "index": 34,
+      "category": "wrong_where_val",
+      "question": "what is the total number of\u00a0ties played\u00a0where\u00a0total w\u2013l\u00a0is 38\u201324",
+      "predicted_sql": "SELECT COUNT(`Ties played`) FROM table WHERE `Total W\u2013L` = '38-24'",
+      "gold_sql": "SELECT COUNT(`Ties played`) FROM table WHERE `Total W\u2013L` = '38\u201324'"
+    },
+    {
+      "index": 35,
+      "category": "multiple_errors",
+      "question": "What is the Frequency at the Market/Rank of Burlington - Plattsburgh , Vermont - New York /143?",
+      "predicted_sql": "SELECT `Frequency` FROM table WHERE `Market/Rank` = 'burlington - plattsburgh, vermont - new york /143'",
+      "gold_sql": "SELECT COUNT(`Frequency`) FROM table WHERE `Market/Rank` = 'Burlington - Plattsburgh , Vermont - New York /143'"
+    },
+    {
+      "index": 36,
+      "category": "wrong_where_val",
+      "question": "What is the Branding for Group Owner Qantam of Cape Cod, LLC?",
+      "predicted_sql": "SELECT `Branding` FROM table WHERE `Group owner` = 'qantum of cape cod, llc'",
+      "gold_sql": "SELECT `Branding` FROM table WHERE `Group owner` = 'Qantam of Cape Cod, LLC'"
+    },
+    {
+      "index": 37,
+      "category": "wrong_result_other",
+      "question": "What Branding does WRKO calls use?",
+      "predicted_sql": "SELECT `Branding` FROM table WHERE `Calls` = 'wrko'",
+      "gold_sql": "SELECT `Branding` FROM table WHERE `Calls` = 'WRKO'"
+    },
+    {
+      "index": 38,
+      "category": "wrong_where_val",
+      "question": "What is the Format for Branding of 1290 wkbk w281au 104.1?",
+      "predicted_sql": "SELECT `Format` FROM table WHERE `Branding` = '1290 wbke w281au 104.1'",
+      "gold_sql": "SELECT `Format` FROM table WHERE `Branding` = '1290 WKBK W281AU 104.1'"
+    },
+    {
+      "index": 39,
+      "category": "wrong_result_other",
+      "question": "Which Market/Rank is associated with WCRN calls?",
+      "predicted_sql": "SELECT `Market/Rank` FROM table WHERE `Calls` = 'wcrn'",
+      "gold_sql": "SELECT `Market/Rank` FROM table WHERE `Calls` = 'WCRN'"
+    },
+    {
+      "index": 40,
+      "category": "wrong_result_other",
+      "question": "Which Frequency is used for WEGP calls?",
+      "predicted_sql": "SELECT `Frequency` FROM table WHERE `Calls` = 'wegp'",
+      "gold_sql": "SELECT `Frequency` FROM table WHERE `Calls` = 'WEGP'"
+    },
+    {
+      "index": 41,
+      "category": "wrong_column",
+      "question": "What is the regulated retail price for the tariff code ff0 prs?",
+      "predicted_sql": "SELECT `BTs retail price (regulated)` FROM table WHERE `Tariff code` = 'ff0 pRs'",
+      "gold_sql": "SELECT `BTs retail price (regulated)` FROM table WHERE `Tariff code` = 'ff0 PRS'"
+    },
+    {
+      "index": 43,
+      "category": "wrong_where_val",
+      "question": "How many tariff codes have a bts retail price of 2p/min or inclusive?",
+      "predicted_sql": "SELECT COUNT(`Tariff code`) FROM table WHERE `BTs retail price (regulated)` = '2P/Min' OR `Approx premium` = 'Inclusive'",
+      "gold_sql": "SELECT COUNT(`Tariff code`) FROM table WHERE `BTs retail price (regulated)` = '2p/min or inclusive'"
+    },
+    {
+      "index": 45,
+      "category": "wrong_where_col",
+      "question": "What prefixes are priced at pence per minute, fixed at all times with a premium of 3p/min?",
+      "predicted_sql": "SELECT `Prefixes` FROM table WHERE `Tariff code` = 'Pence Per Minute' AND `Approx premium` = 'Fixed At All Times With A Premium Of 3p/Min'",
+      "gold_sql": "SELECT `Prefixes` FROM table WHERE `Scheme` = 'Pence per minute, fixed at all times' AND `Approx premium` = '3p/min'"
+    },
+    {
+      "index": 46,
+      "category": "wrong_column",
+      "question": "What is the bts retail price (regulated) for tariff code g10?",
+      "predicted_sql": "SELECT `BTs retail price (regulated)` FROM table WHERE `Tariff code` = 'G10'",
+      "gold_sql": "SELECT `BTs retail price (regulated)` FROM table WHERE `Tariff code` = 'g10'"
+    },
+    {
+      "index": 47,
+      "category": "syntax_error",
+      "question": "What is the tone for gen.sing. plague?",
+      "predicted_sql": "SELECT `Tone` FROM table WHERE `Nominative` = 'gen.sg.plague'",
+      "gold_sql": "SELECT `Tone (Latvian notation: /~/ - level, /^/ - broken)` FROM table WHERE `Translation` = 'Gen.Sing. plague'"
+    },
+    {
+      "index": 49,
+      "category": "multiple_errors",
+      "question": "What are all the spectral types for star mismis24-# is 1sw?",
+      "predicted_sql": "SELECT `Spectral type` FROM table WHERE `Star (Pismis24-#)` = 'PSiMis24-01SW'",
+      "gold_sql": "SELECT `Spectral type` FROM table WHERE `Star (Pismis24-#)` = '1SW'"
+    },
+    {
+      "index": 52,
+      "category": "multiple_errors",
+      "question": "How many hours were flown in each of the years where more than 64379058.0 kilometers were flown?",
+      "predicted_sql": "SELECT COUNT(`Flying hours`) FROM table WHERE `Aircraft kilometers` > 64379058",
+      "gold_sql": "SELECT `Flying hours` FROM table WHERE `Aircraft kilometers` > 64379058.0"
+    },
+    {
+      "index": 53,
+      "category": "wrong_where_val",
+      "question": "Of the years that had exactly 17096 departures, what is the greatest number of aircraft kilometers flown?",
+      "predicted_sql": "SELECT MAX(`Aircraft kilometers`) FROM table WHERE `Departures` = 17906",
+      "gold_sql": "SELECT MAX(`Aircraft kilometers`) FROM table WHERE `Departures` = 17096"
+    },
+    {
+      "index": 54,
+      "category": "wrong_column",
+      "question": "Which winning team beat the New York Yankees?",
+      "predicted_sql": "SELECT `Winning team` FROM table WHERE `Losing team` = 'new york yankees'",
+      "gold_sql": "SELECT `Winning team` FROM table WHERE `Losing team` = 'New York Yankees'"
+    },
+    {
+      "index": 55,
+      "category": "wrong_column",
+      "question": "What was the final score for the game that was contested on February 1, 2009?",
+      "predicted_sql": "SELECT `Final score` FROM table WHERE `Date contested` = 'february 1, 2009'",
+      "gold_sql": "SELECT `Final score` FROM table WHERE `Date contested` = 'February 1, 2009'"
+    },
+    {
+      "index": 57,
+      "category": "wrong_column",
+      "question": "Who was the winning team of the game that was contested on February 1, 2009?",
+      "predicted_sql": "SELECT `Winning team` FROM table WHERE `Date contested` = 'february 1, 2009'",
+      "gold_sql": "SELECT `Winning team` FROM table WHERE `Date contested` = 'February 1, 2009'"
+    },
+    {
+      "index": 58,
+      "category": "wrong_column",
+      "question": "Who was the losing team of the game that was contested on February 1, 2004?",
+      "predicted_sql": "SELECT `Losing team` FROM table WHERE `Date contested` = 'february 1, 2004'",
+      "gold_sql": "SELECT `Losing team` FROM table WHERE `Date contested` = 'February 1, 2004'"
+    },
+    {
+      "index": 59,
+      "category": "wrong_result_other",
+      "question": "what's the minimum\u00a0total\u00a0with\u00a0crop (kilotonnes)\u00a0being s lupin",
+      "predicted_sql": "SELECT MIN(`Total`) FROM table WHERE `Crop (kilotonnes)` = 'S Lupin'",
+      "gold_sql": "SELECT MIN(`Total`) FROM table WHERE `Crop (kilotonnes)` = 's Lupin'"
+    },
+    {
+      "index": 64,
+      "category": "syntax_error",
+      "question": "How many significant relationships list Will as a virtue?",
+      "predicted_sql": "SELECT COUNT(`Significant Relationship`) FROM table WHERE `Virtue` = 'Will'",
+      "gold_sql": "SELECT COUNT(`Significant Relationship`) FROM table WHERE `Virtues` = 'Will'"
+    },
+    {
+      "index": 65,
+      "category": "wrong_result_other",
+      "question": "Which examples ask the existential question \"Can I Love?\"",
+      "predicted_sql": "SELECT `Examples` FROM table WHERE `Existential Question [ not in citation given ]` = '\"can i love?\"'",
+      "gold_sql": "SELECT `Examples` FROM table WHERE `Existential Question [ not in citation given ]` = 'Can I Love?'"
+    },
+    {
+      "index": 66,
+      "category": "multiple_errors",
+      "question": "How many countries got 796.7 points?",
+      "predicted_sql": "SELECT COUNT(`Member Association`) FROM table WHERE `Points` = '797'",
+      "gold_sql": "SELECT COUNT(`Rank`) FROM table WHERE `Points` = '796.7'"
+    },
+    {
+      "index": 67,
+      "category": "multiple_errors",
+      "question": "In what group stage were 177.2 points awarded?",
+      "predicted_sql": "SELECT `Group stage` FROM table WHERE `Points` = '177.2'",
+      "gold_sql": "SELECT COUNT(`Group stage`) FROM table WHERE `Points` = '177.2'"
+    },
+    {
+      "index": 69,
+      "category": "wrong_where_val",
+      "question": "How many countries earned 177.2 points?",
+      "predicted_sql": "SELECT COUNT(`Member Association`) FROM table WHERE `Points` = '177.200'",
+      "gold_sql": "SELECT COUNT(`Member Association`) FROM table WHERE `Points` = '177.2'"
+    },
+    {
+      "index": 70,
+      "category": "syntax_error",
+      "question": "If % lunsford is 51.82% what is the % mcconnell in Letcher?",
+      "predicted_sql": "SELECT `% `McConnell`` FROM table WHERE `County` = 'Letcher' AND `% `Lunsford`` = '51.82%'",
+      "gold_sql": "SELECT `% McConnell` FROM table WHERE `% Lunsford` = '51.82%'"
+    },
+    {
+      "index": 72,
+      "category": "syntax_error",
+      "question": "When % mcconnell is 44.54% what are the total number of counties?",
+      "predicted_sql": "SELECT COUNT(`County`) FROM table WHERE `% `McConnell`` = '44.54%'",
+      "gold_sql": "SELECT COUNT(`County`) FROM table WHERE `% McConnell` = '44.54%'"
+    },
+    {
+      "index": 76,
+      "category": "syntax_error",
+      "question": "What is the maximum capacity of the Otkrytie Arena stadium?",
+      "predicted_sql": "SELECT MAX(`Capa`City``) FROM table WHERE `Stadium` = 'otkrytie arena'",
+      "gold_sql": "SELECT MAX(`Capacity`) FROM table WHERE `Stadium` = 'Otkrytie Arena'"
+    },
+    {
+      "index": 77,
+      "category": "wrong_agg",
+      "question": "When did the stadium where Bursaspor is the tenant open?",
+      "predicted_sql": "SELECT `Opening` FROM table WHERE `Tenant` = 'bursaspor'",
+      "gold_sql": "SELECT MIN(`Opening`) FROM table WHERE `Tenant` = 'Bursaspor'"
+    },
+    {
+      "index": 82,
+      "category": "multiple_errors",
+      "question": "What are the climatic conditions for the trance- n himalaya zone?",
+      "predicted_sql": "SELECT `Trance- n Himalaya Zone` FROM table",
+      "gold_sql": "SELECT `Trance- n Himalaya Zone` FROM table WHERE `Particulars and Characteristics` = 'Climatic conditions'"
+    },
+    {
+      "index": 87,
+      "category": "extra_where",
+      "question": "In what year was the last last title received, by any of the countries?",
+      "predicted_sql": "SELECT MAX(`Last title`) FROM table WHERE `First title` = 1999",
+      "gold_sql": "SELECT MAX(`Last title`) FROM table"
+    },
+    {
+      "index": 88,
+      "category": "multiple_errors",
+      "question": "What religious groups made up 0.72% of the Indian population in 2001?",
+      "predicted_sql": "SELECT `Religious group` FROM table WHERE `Population % 2001` = '0.72'",
+      "gold_sql": "SELECT `Religious group` FROM table WHERE `Population % 2001` = '0.72%'"
+    },
+    {
+      "index": 90,
+      "category": "syntax_error",
+      "question": "How many episodes in season 6 titles \"Poppin' Tags\"?",
+      "predicted_sql": "SELECT COUNT(`No. in season`) FROM table WHERE `Title` = '\"Popping Tags\"' AND `Season number is larger than 5",
+      "gold_sql": "SELECT COUNT(`No. in season`) FROM table WHERE `Title` = '\"Poppin'' Tags\"'"
+    },
+    {
+      "index": 91,
+      "category": "wrong_result_other",
+      "question": "Which podiums did the Williams team have with a margin of defeat of 2?",
+      "predicted_sql": "SELECT `Podiums` FROM table WHERE `Team` = 'williams' AND `Margin of defeat` = '2'",
+      "gold_sql": "SELECT `Podiums` FROM table WHERE `Team` = 'Williams' AND `Margin of defeat` = '2'"
+    },
+    {
+      "index": 92,
+      "category": "wrong_where_val",
+      "question": "How many drivers on the williams team had a margin of defeat of 2?",
+      "predicted_sql": "SELECT COUNT(`Driver`) FROM table WHERE `Team` = 'williams' AND `Margin of defeat` = '-2'",
+      "gold_sql": "SELECT COUNT(`Driver`) FROM table WHERE `Team` = 'Williams' AND `Margin of defeat` = '2'"
+    },
+    {
+      "index": 104,
+      "category": "wrong_where_val",
+      "question": "What is the composition at Valles lava dome?",
+      "predicted_sql": "SELECT `Composition` FROM table WHERE `Name of lava dome` = 'valles'",
+      "gold_sql": "SELECT `Composition` FROM table WHERE `Name of lava dome` = 'Valles lava dome'"
+    },
+    {
+      "index": 105,
+      "category": "wrong_where_val",
+      "question": "How many countries are the Tata Sabaya Lava domes located in?",
+      "predicted_sql": "SELECT COUNT(`Country`) FROM table WHERE `Name of lava dome` = 'Tata Sabaya'",
+      "gold_sql": "SELECT COUNT(`Country`) FROM table WHERE `Name of lava dome` = 'Tata Sabaya lava domes'"
+    },
+    {
+      "index": 113,
+      "category": "wrong_where_val",
+      "question": "What publishers were involved with product number SCUS-97265?",
+      "predicted_sql": "SELECT `Publisher` FROM table WHERE `Product No.` = 'SLES-97001'",
+      "gold_sql": "SELECT `Publisher` FROM table WHERE `Product No.` = 'SCUS-97265'"
+    },
+    {
+      "index": 114,
+      "category": "wrong_result_other",
+      "question": "What is the total number of James Bond 007: Everything or Nothing for each system?",
+      "predicted_sql": "SELECT COUNT(`System`) FROM table WHERE `Title` = 'James Bond 007: everything or nothing'",
+      "gold_sql": "SELECT COUNT(`System`) FROM table WHERE `Title` = 'James Bond 007: Everything or Nothing'"
+    },
+    {
+      "index": 115,
+      "category": "multiple_errors",
+      "question": "How many products have the title \"Jak 3\"?",
+      "predicted_sql": "SELECT COUNT(`Compatible with 20/60GB NTSC PS3 (CECHA/CECHB)`) FROM table WHERE `Title` = 'JAK III'",
+      "gold_sql": "SELECT COUNT(`Product No.`) FROM table WHERE `Title` = 'Jak 3'"
+    },
+    {
+      "index": 116,
+      "category": "wrong_column",
+      "question": "Which James Bond 007: Agent Under Fire from Electronic Arts is compatible with 60 gb pal/80 gb NTSC PS3 (CECHC/CECHE)?",
+      "predicted_sql": "SELECT `Compatible with 60gb PAL/80gb NTSC PS3 (CECHc/CechE)` FROM table WHERE `Publisher` = 'Electronic arts' AND `Title` = '\"James bond 007: agent under fire\"'",
+      "gold_sql": "SELECT `Compatible with 60GB PAL/80GB NTSC PS3 (CECHC/CECHE)` FROM table WHERE `Publisher` = 'Electronic Arts' AND `Title` = 'James Bond 007: Agent Under Fire'"
+    },
+    {
+      "index": 118,
+      "category": "wrong_where_val",
+      "question": "How many titles have the product number SCUS-97330?",
+      "predicted_sql": "SELECT COUNT(`Title`) FROM table WHERE `Product No.` = 'SLES-57100'",
+      "gold_sql": "SELECT COUNT(`Title`) FROM table WHERE `Product No.` = 'SCUS-97330'"
+    },
+    {
+      "index": 120,
+      "category": "syntax_error",
+      "question": "What is the location when the status is in service as coaching stock?",
+      "predicted_sql": "SELECT `Location` FROM table WHERE `Status` = 'in Service' AND `Vehicle Type` = 'coaching Stock'",
+      "gold_sql": "SELECT `Location` FROM table WHERE `Status` = 'In service as coaching stock'"
+    },
+    {
+      "index": 122,
+      "category": "multiple_errors",
+      "question": "What was the first season of the club that in 2012 was 2nd in Superettan?",
+      "predicted_sql": "SELECT `First season` FROM table WHERE `Position in 2012` = '2nd'",
+      "gold_sql": "SELECT `First season` FROM table WHERE `Position in 2012` = '2nd in Superettan'"
+    },
+    {
+      "index": 123,
+      "category": "syntax_error",
+      "question": "What was the first season for the club that in 2012 was 2nd in Superettan?",
+      "predicted_sql": "SELECT `First season` FROM table WHERE `Position in 2012` = '2nd' AND `Superettan` > 0",
+      "gold_sql": "SELECT `First season` FROM table WHERE `Position in 2012` = '2nd in Superettan'"
+    },
+    {
+      "index": 124,
+      "category": "wrong_where_val",
+      "question": "How many series are named \"Lockdown\"?",
+      "predicted_sql": "SELECT COUNT(`Series #`) FROM table WHERE `Title` = '\"LockDown\"'",
+      "gold_sql": "SELECT COUNT(`Series #`) FROM table WHERE `Title` = '\"Lockdown\"'"
+    },
+    {
+      "index": 126,
+      "category": "wrong_where_val",
+      "question": "What was the latest episode of \"House of Cards\"?",
+      "predicted_sql": "SELECT MAX(`Episode #`) FROM table WHERE `Title` = '\"house of cards\"'",
+      "gold_sql": "SELECT MAX(`Episode #`) FROM table WHERE `Title` = '\"House of Cards\"'"
+    },
+    {
+      "index": 127,
+      "category": "multiple_errors",
+      "question": "What percentage of The Bronx voters occured when Manhattan had 29.9% of voters?",
+      "predicted_sql": "SELECT `The Bronx` FROM table WHERE `%` = '`Manhattan`' AND `Brooklyn` = '`Total`'",
+      "gold_sql": "SELECT `The Bronx` FROM table WHERE `Manhattan` = '29.9%'"
+    },
+    {
+      "index": 128,
+      "category": "multiple_errors",
+      "question": "What number of voters did the Bronx have when the total number was 2054?",
+      "predicted_sql": "SELECT `The Bronx` FROM table WHERE `%` = 'total' AND `Total` > 2045",
+      "gold_sql": "SELECT `The Bronx` FROM table WHERE `Total` = 2054"
+    },
+    {
+      "index": 131,
+      "category": "wrong_agg",
+      "question": "What was the total number in Manhattan when Staten Island was 12,658?",
+      "predicted_sql": "SELECT `Manhattan` FROM table WHERE `Staten Island` = '12,658'",
+      "gold_sql": "SELECT COUNT(`Manhattan`) FROM table WHERE `Staten Island` = '12,658'"
+    },
+    {
+      "index": 136,
+      "category": "multiple_errors",
+      "question": "Which candidate won 88 votes in Queens in 1921?",
+      "predicted_sql": "SELECT `Queens` FROM table WHERE `%` = 'total' AND `Total` < 89",
+      "gold_sql": "SELECT `1921` FROM table WHERE `Queens` = '88'"
+    },
+    {
+      "index": 139,
+      "category": "wrong_where_val",
+      "question": "How many parties received 29.9% of the vote in Manhattan?",
+      "predicted_sql": "SELECT COUNT(`party`) FROM table WHERE `Manhattan` = '29.9`%`'",
+      "gold_sql": "SELECT COUNT(`party`) FROM table WHERE `Manhattan` = '29.9%'"
+    },
+    {
+      "index": 142,
+      "category": "syntax_error",
+      "question": "What is the late 1941 when 1978 veteran membership is 20000",
+      "predicted_sql": "SELECT `! Late 1941` FROM table WHERE `Late 1940s Veterans Membership in 1978` = '20,000'",
+      "gold_sql": "SELECT `! Late 1941` FROM table WHERE `1978 Veteran membership` = 20000"
+    },
+    {
+      "index": 143,
+      "category": "multiple_errors",
+      "question": "What was Eric Dickerson's longest run?",
+      "predicted_sql": "SELECT `Longest run` FROM table WHERE `Player` = 'Eric Dickerson'",
+      "gold_sql": "SELECT COUNT(`Longest run`) FROM table WHERE `Player` = 'Eric Dickerson'"
+    },
+    {
+      "index": 145,
+      "category": "wrong_agg",
+      "question": "How many yards did the player with 87 attempts rush?",
+      "predicted_sql": "SELECT COUNT(`Yards`) FROM table WHERE `Attempts` = 87",
+      "gold_sql": "SELECT `Yards` FROM table WHERE `Attempts` = 87"
+    },
+    {
+      "index": 146,
+      "category": "wrong_agg",
+      "question": "What was the highest amount of people that attended the elgin city team?",
+      "predicted_sql": "SELECT MAX(`Highest`) FROM table WHERE `Team` = 'Elgin City'",
+      "gold_sql": "SELECT COUNT(`Highest`) FROM table WHERE `Team` = 'Elgin City'"
+    },
+    {
+      "index": 147,
+      "category": "wrong_where_val",
+      "question": "The firs park stadium had the lowest average attendence of what?",
+      "predicted_sql": "SELECT MIN(`Average`) FROM table WHERE `Stadium` = 'Firhill'",
+      "gold_sql": "SELECT MIN(`Average`) FROM table WHERE `Stadium` = 'Firs Park'"
+    },
+    {
+      "index": 151,
+      "category": "wrong_result_other",
+      "question": "what's the\u00a0premiere\u00a0with\u00a0hk viewers\u00a0of 2.09 million",
+      "predicted_sql": "SELECT `Premiere` FROM table WHERE `HK viewers` = '2.09 Million'",
+      "gold_sql": "SELECT `Premiere` FROM table WHERE `HK viewers` = '2.09 million'"
+    },
+    {
+      "index": 156,
+      "category": "wrong_result_other",
+      "question": "What is Pittodrie Stadium's maximum capacity?",
+      "predicted_sql": "SELECT MAX(`Capacity`) FROM table WHERE `Stadium` = 'pittodrie'",
+      "gold_sql": "SELECT MAX(`Capacity`) FROM table WHERE `Stadium` = 'Pittodrie'"
+    },
+    {
+      "index": 160,
+      "category": "multiple_errors",
+      "question": "During the 2013 debut, what is the w-I(total) number?",
+      "predicted_sql": "SELECT `W-L (Total)` FROM table WHERE `Debut` = 2013",
+      "gold_sql": "SELECT COUNT(`W-L (Total)`) FROM table WHERE `Debut` = 2013"
+    },
+    {
+      "index": 161,
+      "category": "multiple_errors",
+      "question": "What is the catalog number named callanetics: 10 years younger in 10 hours",
+      "predicted_sql": "SELECT `Catalog Number` FROM table WHERE `Title` = 'Callanetics: 10 `Year`s Younger In 10 Hours'",
+      "gold_sql": "SELECT `Catalog Number` FROM table WHERE `Title` = 'Callanetics: 10 Years Younger In 10 Hours'"
+    },
+    {
+      "index": 162,
+      "category": "wrong_where_val",
+      "question": "how many studios have the catalog number \"cal03 / 0091037137333\"?",
+      "predicted_sql": "SELECT COUNT(`Studio`) FROM table WHERE `Catalog Number` = 'CAL03 / 009103713733'",
+      "gold_sql": "SELECT COUNT(`Studio`) FROM table WHERE `Catalog Number` = 'CAL03 / 0091037137333'"
+    },
+    {
+      "index": 163,
+      "category": "wrong_where_val",
+      "question": "what is the format of \"callanetics: 10 years younger in 10 hours\"?",
+      "predicted_sql": "SELECT `Format` FROM table WHERE `Title` = '\"Callanetics: 10 `Year`s Younger In 10 Hours\"'",
+      "gold_sql": "SELECT `Format` FROM table WHERE `Title` = 'Callanetics: 10 Years Younger In 10 Hours'"
+    },
+    {
+      "index": 164,
+      "category": "wrong_column",
+      "question": "What is the catalog number of the title called \"super callanetics\"?",
+      "predicted_sql": "SELECT `Catalog Number` FROM table WHERE `Title` = '\"Super Callanetics\"'",
+      "gold_sql": "SELECT `Catalog Number` FROM table WHERE `Title` = 'Super Callanetics'"
+    },
+    {
+      "index": 165,
+      "category": "multiple_errors",
+      "question": "how many titles have the name \"quick callanetics\"?",
+      "predicted_sql": "SELECT COUNT(`Title`) FROM table WHERE `Catalog Number` = 'Quick Callanetics'",
+      "gold_sql": "SELECT COUNT(`Catalog Number`) FROM table WHERE `Title` = 'Quick Callanetics'"
+    },
+    {
+      "index": 166,
+      "category": "wrong_where_val",
+      "question": "Who creates the catalog with the number \"cal03 / 0091037137333\"?",
+      "predicted_sql": "SELECT `Studio` FROM table WHERE `Catalog Number` = 'CAL03 / 009103713733'",
+      "gold_sql": "SELECT `Studio` FROM table WHERE `Catalog Number` = 'CAL03 / 0091037137333'"
+    },
+    {
+      "index": 172,
+      "category": "wrong_result_other",
+      "question": "Which premiere had languages in danish?",
+      "predicted_sql": "SELECT `Premiere` FROM table WHERE `Languages` = 'danish'",
+      "gold_sql": "SELECT `Premiere` FROM table WHERE `Languages` = 'Danish'"
+    },
+    {
+      "index": 174,
+      "category": "wrong_result_other",
+      "question": "What is the premiere where the host is lieke van lexmond dennis weening?",
+      "predicted_sql": "SELECT `Premiere` FROM table WHERE `Host` = 'Lieke Van Lexmond Dennis Weening'",
+      "gold_sql": "SELECT `Premiere` FROM table WHERE `Host` = 'Lieke van Lexmond Dennis Weening'"
+    },
+    {
+      "index": 175,
+      "category": "wrong_where_val",
+      "question": "What is the premiere on the mega channel?",
+      "predicted_sql": "SELECT `Premiere` FROM table WHERE `Channel` = 'Mega'",
+      "gold_sql": "SELECT `Premiere` FROM table WHERE `Channel` = 'Mega Channel'"
+    },
+    {
+      "index": 176,
+      "category": "wrong_column",
+      "question": "What is the symbol for Windpower in China?",
+      "predicted_sql": "SELECT `Wind power (WP)` FROM table WHERE `Country` = 'china'",
+      "gold_sql": "SELECT `Wind power (WP)` FROM table WHERE `Country` = 'China'"
+    },
+    {
+      "index": 177,
+      "category": "syntax_error",
+      "question": "who were the winners in west virginia",
+      "predicted_sql": "SELECT `Candidates` FROM table WHERE `State (linked to summaries below)` = 'West Virginia'",
+      "gold_sql": "SELECT `Candidates Winning candidate in bold` FROM table WHERE `State (linked to summaries below)` = 'West Virginia'"
+    },
+    {
+      "index": 180,
+      "category": "wrong_result_other",
+      "question": "What is the dysart of the principal?",
+      "predicted_sql": "SELECT `Dysart` FROM table WHERE `Information` = 'principal'",
+      "gold_sql": "SELECT `Dysart` FROM table WHERE `Information` = 'Principal'"
+    },
+    {
+      "index": 181,
+      "category": "multiple_errors",
+      "question": "What is williow canyon of Roberta Lockhart?",
+      "predicted_sql": "SELECT `Willow Canyon` FROM table WHERE `Valley Vista` = 'roberta lockhart'",
+      "gold_sql": "SELECT `Willow Canyon` FROM table WHERE `Dysart` = 'Roberta Lockhart'"
+    },
+    {
+      "index": 182,
+      "category": "multiple_errors",
+      "question": "What is the willow canyon of Stallion?",
+      "predicted_sql": "SELECT `Willow Canyon` FROM table WHERE `Dysart` ='stallion'",
+      "gold_sql": "SELECT `Willow Canyon` FROM table WHERE `Shadow Ridge` = 'Stallion'"
+    },
+    {
+      "index": 183,
+      "category": "multiple_errors",
+      "question": "Name the Valley Vista of Anthony Capuano",
+      "predicted_sql": "SELECT `Valley Vista` FROM table WHERE `Dysart` = 'anthony capuano'",
+      "gold_sql": "SELECT `Valley Vista` FROM table WHERE `Willow Canyon` = 'Anthony Capuano'"
+    },
+    {
+      "index": 184,
+      "category": "wrong_where_col",
+      "question": "How many informations does Michael Hawkins have?",
+      "predicted_sql": "SELECT COUNT(`Information`) FROM table WHERE `Dysart` = 'Michael Hawkins'",
+      "gold_sql": "SELECT COUNT(`Information`) FROM table WHERE `Shadow Ridge` = 'Michael Hawkins'"
+    },
+    {
+      "index": 186,
+      "category": "multiple_errors",
+      "question": "Who drove the winning car constructed by Jordan - Mugen-Honda?",
+      "predicted_sql": "SELECT `Winning Driver` FROM table WHERE `Pole Position` = 'Michael Schumacher' AND `Grand Prix` = 'Japanese Grand Prix'",
+      "gold_sql": "SELECT `Winning Driver` FROM table WHERE `Winning Constructor` = 'Jordan - Mugen-Honda'"
+    },
+    {
+      "index": 187,
+      "category": "wrong_column",
+      "question": "Which Grand Prix was won by a car constructed by Jordan - Mugen-Honda?",
+      "predicted_sql": "SELECT `Grand Prix` FROM table WHERE `Winning Constructor` = 'jordan - mugen-honda'",
+      "gold_sql": "SELECT `Grand Prix` FROM table WHERE `Winning Constructor` = 'Jordan - Mugen-Honda'"
+    },
+    {
+      "index": 188,
+      "category": "wrong_where_val",
+      "question": "Which location belongs to the website, http://www.mudgeerabasoccer.com/?",
+      "predicted_sql": "SELECT `Location` FROM table WHERE `Website` = 'http://www.mudgeeraba soccer.com/'",
+      "gold_sql": "SELECT `Location` FROM table WHERE `Website` = 'http://www.mudgeerabasoccer.com/'"
+    },
+    {
+      "index": 190,
+      "category": "wrong_result_other",
+      "question": "How many head coaches are there for the website, http://www.burleighbulldogs.org/?",
+      "predicted_sql": "SELECT COUNT(`Head Coach`) FROM table WHERE `Website` = 'http://www.BurleighBullDogs.Org/'",
+      "gold_sql": "SELECT COUNT(`Head Coach`) FROM table WHERE `Website` = 'http://www.burleighbulldogs.org/'"
+    },
+    {
+      "index": 192,
+      "category": "multiple_errors",
+      "question": "Who is the driver of the european grand prix?",
+      "predicted_sql": "SELECT `Winning Driver` FROM table WHERE `Grand Prix` = 'European'",
+      "gold_sql": "SELECT `Winning Driver` FROM table WHERE `Grand Prix` = 'European Grand Prix'"
+    },
+    {
+      "index": 195,
+      "category": "multiple_errors",
+      "question": "Name the grand prix with a driver of Michael Schumacher and a round of 7?",
+      "predicted_sql": "SELECT `Grand Prix` FROM table WHERE `Winning Driver` ='michael schumacher' AND `Round` = 7",
+      "gold_sql": "SELECT `Grand Prix` FROM table WHERE `Winning Driver` = 'Michael Schumacher' AND `Fastest Lap` = 'Michael Schumacher' AND `Round` = 7"
+    },
+    {
+      "index": 197,
+      "category": "wrong_where_val",
+      "question": "How many Grand Prix were the winning constructor Benetton - Ford and the pole position was Michael Schumacher?",
+      "predicted_sql": "SELECT COUNT(`Grand Prix`) FROM table WHERE `Winning Constructor` = 'Benetton-Ford' AND `Pole Position` = 'Michael Schumacher'",
+      "gold_sql": "SELECT COUNT(`Grand Prix`) FROM table WHERE `Winning Constructor` = 'Benetton - Ford' AND `Pole Position` = 'Michael Schumacher'"
+    },
+    {
+      "index": 199,
+      "category": "multiple_errors",
+      "question": "Who was the winning driver in the grand prix at Pacific Grand Prix?",
+      "predicted_sql": "SELECT `Winning Driver` FROM table WHERE `Grand Prix` = 'Pacific'",
+      "gold_sql": "SELECT `Winning Driver` FROM table WHERE `Grand Prix` = 'Pacific Grand Prix'"
+    },
+    {
+      "index": 203,
+      "category": "wrong_where_val",
+      "question": "Which round was the Spanish Grand Prix?",
+      "predicted_sql": "SELECT `Round` FROM table WHERE `Grand Prix` = 'Spanish'",
+      "gold_sql": "SELECT `Round` FROM table WHERE `Grand Prix` = 'Spanish Grand Prix'"
+    },
+    {
+      "index": 213,
+      "category": "wrong_where_val",
+      "question": "What circuit has a race called ii cape south easter trophy.",
+      "predicted_sql": "SELECT `Circuit` FROM table WHERE `Race Name` = 'ii cape south easter'",
+      "gold_sql": "SELECT `Circuit` FROM table WHERE `Race Name` = 'II Cape South Easter Trophy'"
+    },
+    {
+      "index": 214,
+      "category": "wrong_column",
+      "question": "Which driver won the i race of champions?",
+      "predicted_sql": "SELECT `Winning driver` FROM table WHERE `Race Name` = 'i race of champions'",
+      "gold_sql": "SELECT `Winning driver` FROM table WHERE `Race Name` = 'I Race of Champions'"
+    },
+    {
+      "index": 216,
+      "category": "wrong_where_val",
+      "question": "What is the report for the race i sunday mirror trophy?",
+      "predicted_sql": "SELECT `Report` FROM table WHERE `Race Name` = 'Sunday Mirror Trophy'",
+      "gold_sql": "SELECT `Report` FROM table WHERE `Race Name` = 'I Sunday Mirror Trophy'"
+    },
+    {
+      "index": 217,
+      "category": "wrong_where_col",
+      "question": "How many winners did I Dessau Autobahnspinne have?",
+      "predicted_sql": "SELECT COUNT(`Winning driver`) FROM table WHERE `Circuit` = 'Dessau Autobahnspinn'",
+      "gold_sql": "SELECT COUNT(`Winning driver`) FROM table WHERE `Race Name` = 'I Dessau Autobahnspinne'"
+    },
+    {
+      "index": 221,
+      "category": "wrong_column",
+      "question": "Which driver won at the Sachsenring circuit?",
+      "predicted_sql": "SELECT `Winning driver` FROM table WHERE `Circuit` ='sachsenring'",
+      "gold_sql": "SELECT `Winning driver` FROM table WHERE `Circuit` = 'Sachsenring'"
+    },
+    {
+      "index": 222,
+      "category": "wrong_result_other",
+      "question": "Which constructor was present at the Redex Trophy race?",
+      "predicted_sql": "SELECT `Constructor` FROM table WHERE `Race Name` ='redex trophy'",
+      "gold_sql": "SELECT `Constructor` FROM table WHERE `Race Name` = 'RedeX Trophy'"
+    },
+    {
+      "index": 226,
+      "category": "syntax_error",
+      "question": "what is the total number of\u00a0kickoff [a ]\u00a0where\u00a0week\u00a0is week",
+      "predicted_sql": "SELECT COUNT(`Kickoff [a]`) FROM table WHERE `Week` = 'Week'",
+      "gold_sql": "SELECT COUNT(`Kickoff [a ]`) FROM table WHERE `Week` = 'Week'"
+    },
+    {
+      "index": 232,
+      "category": "wrong_where_val",
+      "question": "Would built the winning car in the IV J.C.C. Jersey Road Race? ",
+      "predicted_sql": "SELECT `Constructor` FROM table WHERE `Race Name` = 'IV JCC Jersey Road race'",
+      "gold_sql": "SELECT `Constructor` FROM table WHERE `Race Name` = 'IV J.C.C. Jersey Road Race'"
+    },
+    {
+      "index": 234,
+      "category": "syntax_error",
+      "question": "When did the season air where the viewership was 14.71 million?",
+      "predicted_sql": "SELECT `TV `Season`` FROM table WHERE `Viewers (in millions)` = '14.71'",
+      "gold_sql": "SELECT `Season premiere` FROM table WHERE `Viewers (in millions)` = '14.71'"
+    },
+    {
+      "index": 235,
+      "category": "syntax_error",
+      "question": "What tv season had a season finale of august 18, 2004?",
+      "predicted_sql": "SELECT `TV `Season`` FROM table WHERE ``Season` finale` = 'August 18, 2004'",
+      "gold_sql": "SELECT `TV season` FROM table WHERE `Season finale` = 'August 18, 2004'"
+    },
+    {
+      "index": 236,
+      "category": "multiple_errors",
+      "question": "What is the power capacity when the generators were 781?",
+      "predicted_sql": "SELECT `Power Capacity (GW)` FROM table WHERE `% of annual production` = '781'",
+      "gold_sql": "SELECT `Power Capacity (GW)` FROM table WHERE `Number of Generators` = 781"
+    },
+    {
+      "index": 238,
+      "category": "wrong_column",
+      "question": "What is the % of annual production of solar?",
+      "predicted_sql": "SELECT `% of annual production` FROM table WHERE `Power Source` ='solar'",
+      "gold_sql": "SELECT `% of annual production` FROM table WHERE `Power Source` = 'Solar'"
+    },
+    {
+      "index": 239,
+      "category": "multiple_errors",
+      "question": "What is the number of generators where the power capicity is 78.7?",
+      "predicted_sql": "SELECT `Number of Generators` FROM table WHERE `Power Capacity (GW)` = '78.7'",
+      "gold_sql": "SELECT COUNT(`Number of Generators`) FROM table WHERE `Power Capacity (GW)` = '78.7'"
+    },
+    {
+      "index": 243,
+      "category": "multiple_errors",
+      "question": "If the engine make/capacity is MWM 6.10 TCA-EURO III (Turbo Intercooler) and  GVM (kg) Technical Capacity is 23000, what is the Torque Nm@rpm?",
+      "predicted_sql": "SELECT `Torque Nm@rpm` FROM table WHERE `GVM (kg) Technical Capacity` = '23' AND `Engine make/Capacity` = 'MWM 6.10 tca-euro iii (turbo intercooler)'",
+      "gold_sql": "SELECT `Torque Nm@rpm` FROM table WHERE `GCM (kg) Technical Capacity` = '23000' AND `Engine make/Capacity` = 'MWM 6.10 TCA-EURO III (Turbo Intercooler)'"
+    },
+    {
+      "index": 244,
+      "category": "multiple_errors",
+      "question": "What is the power kw@RPM of the 13.180 model?",
+      "predicted_sql": "SELECT `Power kW@rpm` FROM table WHERE `Model` = '13.180'",
+      "gold_sql": "SELECT COUNT(`Power kW@rpm`) FROM table WHERE `Model` = '13.180'"
+    },
+    {
+      "index": 245,
+      "category": "syntax_error",
+      "question": "When the transmission make/type/speed is eaton fs 5306-a manual synchromesh 6 speed, what is the value of the gcm (kg) technical capacity?",
+      "predicted_sql": "SELECT `GCV` FROM table WHERE `Transmission Make/Type/Speed` = 'Eaton FS 5306-A Manual SynchroMESH 6 Speed'",
+      "gold_sql": "SELECT `GCM (kg) Technical Capacity` FROM table WHERE `Transmission Make/Type/Speed` = 'Eaton FS 5306-A Manual Synchromesh 6 Speed'"
+    },
+    {
+      "index": 246,
+      "category": "wrong_result_other",
+      "question": "Which model possesses a transmission make/type/speed of eaton fs-6306 a manual synchromesh 6 speed?",
+      "predicted_sql": "SELECT `Model` FROM table WHERE `Transmission Make/Type/Speed` = 'Eaton FS-6306 A Manual SynchroMESH 6 Speed'",
+      "gold_sql": "SELECT `Model` FROM table WHERE `Transmission Make/Type/Speed` = 'Eaton FS-6306 A Manual Synchromesh 6 Speed'"
+    },
+    {
+      "index": 247,
+      "category": "syntax_error",
+      "question": "Is drawing tablet support part of the semi-DDM class?",
+      "predicted_sql": "SELECT `Semi-`DDM Class`` FROM table WHERE `Comparisons` = 'Drawing Tablet Support'",
+      "gold_sql": "SELECT `Semi-DDM Class` FROM table WHERE `Comparisons` = 'Drawing Tablet Support'"
+    },
+    {
+      "index": 248,
+      "category": "wrong_column",
+      "question": "Is  usb re-enumeration required part of the emulated class?",
+      "predicted_sql": "SELECT `Emulated Class` FROM table WHERE `Comparisons` = 'USB Re-Enumeration Required'",
+      "gold_sql": "SELECT `Emulated Class` FROM table WHERE `Comparisons` = 'USB RE-Enumeration Required'"
+    },
+    {
+      "index": 249,
+      "category": "multiple_errors",
+      "question": "Is wireless combo keyboard and mouse support part of the hub base class?",
+      "predicted_sql": "SELECT `Hub Base Class` FROM table WHERE `Comparisons` = 'Wireless Combo Keyboard And Mouse Support'",
+      "gold_sql": "SELECT `Hub Base Class` FROM table WHERE `Comparisons` = 'Wireless Combo keyboard and mouse support'"
+    },
+    {
+      "index": 251,
+      "category": "multiple_errors",
+      "question": "Is  wireless combo keyboard and mouse support part of the DDM class?",
+      "predicted_sql": "SELECT `DDM Class` FROM table WHERE `Comparisons` = 'Wireless Combo Keyboard And Mouse Support'",
+      "gold_sql": "SELECT `DDM Class` FROM table WHERE `Comparisons` = 'Wireless Combo keyboard and mouse support'"
+    },
+    {
+      "index": 253,
+      "category": "wrong_result_other",
+      "question": "Which forward player has the number 22?",
+      "predicted_sql": "SELECT `Player` FROM table WHERE `Position` = 'forward' AND `No.` = '22'",
+      "gold_sql": "SELECT `Player` FROM table WHERE `No.` = '22' AND `Position` = 'Forward'"
+    },
+    {
+      "index": 254,
+      "category": "wrong_result_other",
+      "question": "What number does the player from Ohio play with?",
+      "predicted_sql": "SELECT `No.` FROM table WHERE `School/Club Team` = 'ohio'",
+      "gold_sql": "SELECT `No.` FROM table WHERE `School/Club Team` = 'Ohio'"
+    },
+    {
+      "index": 258,
+      "category": "wrong_column",
+      "question": "What University has the acrronym of USF",
+      "predicted_sql": "SELECT `University Name` FROM table WHERE `Acronym` = 'USf'",
+      "gold_sql": "SELECT `University Name` FROM table WHERE `Acronym` = 'USF'"
+    },
+    {
+      "index": 259,
+      "category": "wrong_result_other",
+      "question": "What is the acronym used for Beirut Arab University?",
+      "predicted_sql": "SELECT `Acronym` FROM table WHERE `University Name` = 'Beirut arab university'",
+      "gold_sql": "SELECT `Acronym` FROM table WHERE `University Name` = 'Beirut Arab University'"
+    },
+    {
+      "index": 262,
+      "category": "multiple_errors",
+      "question": "What year was USF founded?",
+      "predicted_sql": "SELECT `Date founded` FROM table WHERE `University Name` = 'USF'",
+      "gold_sql": "SELECT `Date founded` FROM table WHERE `Acronym` = 'USF'"
+    },
+    {
+      "index": 264,
+      "category": "wrong_result_other",
+      "question": "What is the tournament of aug 29?",
+      "predicted_sql": "SELECT `Tournament` FROM table WHERE `Date` = 'aug 29'",
+      "gold_sql": "SELECT `Tournament` FROM table WHERE `Date` = 'Aug 29'"
+    },
+    {
+      "index": 265,
+      "category": "multiple_errors",
+      "question": "How many prizes were there at the transamerica?",
+      "predicted_sql": "SELECT COUNT(`Purse( $ )`) FROM table WHERE `Tournament` = 'TransAmerica'",
+      "gold_sql": "SELECT COUNT(`1st Prize( $ )`) FROM table WHERE `Tournament` = 'The Transamerica'"
+    },
+    {
+      "index": 266,
+      "category": "multiple_errors",
+      "question": "What is the sum of the largest purse?",
+      "predicted_sql": "SELECT SUM(`Purse( $ )`) FROM table WHERE `Tournament` = 'largest'",
+      "gold_sql": "SELECT MAX(`Purse( $ )`) FROM table"
+    },
+    {
+      "index": 267,
+      "category": "wrong_result_other",
+      "question": "When was the tournament in Washington held?",
+      "predicted_sql": "SELECT `Date` FROM table WHERE `Location` = 'washington'",
+      "gold_sql": "SELECT `Date` FROM table WHERE `Location` = 'Washington'"
+    },
+    {
+      "index": 268,
+      "category": "multiple_errors",
+      "question": "How many tournaments in Texas had a purse higher than 330105.1624276874?",
+      "predicted_sql": "SELECT COUNT(`Tournament`) FROM table WHERE `Location` = 'texas' AND `Purse( $ )` > 330105",
+      "gold_sql": "SELECT COUNT(`1st Prize( $ )`) FROM table WHERE `Location` = 'Texas' AND `Purse( $ )` > 330105.1624276874"
+    },
+    {
+      "index": 272,
+      "category": "multiple_errors",
+      "question": "What is the series number for the title \"Bad Influence\"",
+      "predicted_sql": "SELECT `Series no.` FROM table WHERE `Title` = '\"bad influence\"'",
+      "gold_sql": "SELECT MAX(`Series no.`) FROM table WHERE `Title` = '\"Bad Influence\"'"
+    },
+    {
+      "index": 276,
+      "category": "wrong_column",
+      "question": "What is the purse value for the New York location?",
+      "predicted_sql": "SELECT `Purse( $ )` FROM table WHERE `Location` = 'new york'",
+      "gold_sql": "SELECT `Purse( $ )` FROM table WHERE `Location` = 'New York'"
+    },
+    {
+      "index": 277,
+      "category": "wrong_column",
+      "question": "What is the largest 1st prize( $ ) at the South Carolina location?",
+      "predicted_sql": "SELECT MAX(`Purse( $ )`) FROM table WHERE `Location` ='south carolina'",
+      "gold_sql": "SELECT MAX(`1st Prize( $ )`) FROM table WHERE `Location` = 'South Carolina'"
+    },
+    {
+      "index": 278,
+      "category": "wrong_result_other",
+      "question": "What is the score for the Oregon location?",
+      "predicted_sql": "SELECT `Score` FROM table WHERE `Location` = 'oregon'",
+      "gold_sql": "SELECT `Score` FROM table WHERE `Location` = 'Oregon'"
+    },
+    {
+      "index": 279,
+      "category": "multiple_errors",
+      "question": "List all areas within 1000 km in the city of Lubelskie?",
+      "predicted_sql": "SELECT `Area in 1000km\u00b2 (1930)` FROM table WHERE `Capital` = 'Lubelskie'",
+      "gold_sql": "SELECT `Area in 1000km\u00b2 (1930)` FROM table WHERE `Voivodeship Separate city` = 'lubelskie'"
+    },
+    {
+      "index": 280,
+      "category": "multiple_errors",
+      "question": "What is the population in the city of Pomorskie?",
+      "predicted_sql": "SELECT `Population in 1000 (1931)` FROM table WHERE `Capital` = 'Pomorskie'",
+      "gold_sql": "SELECT `Population in 1000 (1931)` FROM table WHERE `Voivodeship Separate city` = 'pomorskie'"
+    },
+    {
+      "index": 283,
+      "category": "wrong_agg",
+      "question": "How many points are there when the lost is 26?",
+      "predicted_sql": "SELECT COUNT(`Points`) FROM table WHERE `Lost` = 26",
+      "gold_sql": "SELECT `Points` FROM table WHERE `Lost` = 26"
+    },
+    {
+      "index": 284,
+      "category": "multiple_errors",
+      "question": "WHAT TEAM CLASSIFIED IN THE STAGE WHERE BRADLEY WIGGINS WON THE POINTS CLASSIFICATION ?",
+      "predicted_sql": "SELECT `Team Classification` FROM table WHERE `Points classification` = 'Bradley Wiggin' AND `Stage (Winner)` = 'bradley wiggins'",
+      "gold_sql": "SELECT `Team Classification` FROM table WHERE `Points classification` = 'Bradley Wiggins'"
+    },
+    {
+      "index": 285,
+      "category": "syntax_error",
+      "question": "IN WHAT STAGE DID ALEXANDER VINOKOUROV WON THE GENERAL CLASSIFICATION?",
+      "predicted_sql": "SELECT `Stage` FROM table WHERE `General classification` = 'Alexander Vinokourov'",
+      "gold_sql": "SELECT `Stage (Winner)` FROM table WHERE `General classification` = 'Alexander Vinokourov'"
+    },
+    {
+      "index": 286,
+      "category": "wrong_result_other",
+      "question": "Name the average for spain delegate",
+      "predicted_sql": "SELECT `Average` FROM table WHERE `Delegate` ='spain'",
+      "gold_sql": "SELECT `Average` FROM table WHERE `Delegate` = 'Spain'"
+    },
+    {
+      "index": 290,
+      "category": "wrong_column",
+      "question": "Who were the MLB draft with the hometown Opa-locka, Fl?",
+      "predicted_sql": "SELECT `MLB Draft` FROM table WHERE `Hometown` = 'Opa-Locka, FL'",
+      "gold_sql": "SELECT `MLB Draft` FROM table WHERE `Hometown` = 'Opa-locka, FL'"
+    },
+    {
+      "index": 292,
+      "category": "wrong_result_other",
+      "question": "Which position did the player from the hometown of Dallas, TX play?",
+      "predicted_sql": "SELECT `Position` FROM table WHERE `Hometown` = 'dallas, tx'",
+      "gold_sql": "SELECT `Position` FROM table WHERE `Hometown` = 'Dallas, TX'"
+    },
+    {
+      "index": 293,
+      "category": "wrong_result_other",
+      "question": "What is the hometown of player Jason Place?",
+      "predicted_sql": "SELECT `Hometown` FROM table WHERE `Player` = 'jason place'",
+      "gold_sql": "SELECT `Hometown` FROM table WHERE `Player` = 'Jason Place'"
+    },
+    {
+      "index": 294,
+      "category": "wrong_result_other",
+      "question": "What school did the catcher attend?",
+      "predicted_sql": "SELECT `School` FROM table WHERE `Position` = 'catcher'",
+      "gold_sql": "SELECT `School` FROM table WHERE `Position` = 'Catcher'"
+    },
+    {
+      "index": 295,
+      "category": "wrong_result_other",
+      "question": "What is Jay Bruce's hometown?",
+      "predicted_sql": "SELECT `Hometown` FROM table WHERE `Player` = 'jay bruce'",
+      "gold_sql": "SELECT `Hometown` FROM table WHERE `Player` = 'Jay Bruce'"
+    },
+    {
+      "index": 296,
+      "category": "wrong_result_other",
+      "question": "What school is he the catcher for?",
+      "predicted_sql": "SELECT `School` FROM table WHERE `Position` = 'catcher'",
+      "gold_sql": "SELECT `School` FROM table WHERE `Position` = 'Catcher'"
+    },
+    {
+      "index": 297,
+      "category": "multiple_errors",
+      "question": "WHAT HOMETOWN DOES HE PLAY AS THE CATCHER FOR?",
+      "predicted_sql": "SELECT `Hometown` FROM table WHERE `Position` = 'catcher' AND `Player` = 'he'",
+      "gold_sql": "SELECT `Hometown` FROM table WHERE `Position` = 'Catcher'"
+    },
+    {
+      "index": 298,
+      "category": "wrong_where_val",
+      "question": "WHAT POSITION DOES HE PLAY FOR AT WEST BROOK SENIOR HIGH SCHOOL?",
+      "predicted_sql": "SELECT `Position` FROM table WHERE `School` = 'West Brook Senior High'",
+      "gold_sql": "SELECT `Position` FROM table WHERE `School` = 'West Brook Senior High School'"
+    },
+    {
+      "index": 299,
+      "category": "wrong_where_val",
+      "question": "WHAT TOWN IS WEST BROOK SENIOR HIGH SCHOOL FROM?",
+      "predicted_sql": "SELECT `Hometown` FROM table WHERE `School` = 'West Brook Senior High'",
+      "gold_sql": "SELECT `Hometown` FROM table WHERE `School` = 'West Brook Senior High School'"
+    },
+    {
+      "index": 300,
+      "category": "wrong_where_val",
+      "question": "What position did the player from Jersey City, New Jersey play? ",
+      "predicted_sql": "SELECT `Position` FROM table WHERE `Hometown` = 'Jersey City, NJ'",
+      "gold_sql": "SELECT `Position` FROM table WHERE `Hometown` = 'Jersey City, New Jersey'"
+    },
+    {
+      "index": 301,
+      "category": "wrong_result_other",
+      "question": "What offensive line player hailed from Baton Rouge, Louisiana?",
+      "predicted_sql": "SELECT `Player` FROM table WHERE `Position` = 'offensive line' AND `Hometown` = 'baton rouge, louisiana'",
+      "gold_sql": "SELECT `Player` FROM table WHERE `Position` = 'Offensive line' AND `Hometown` = 'Baton Rouge, Louisiana'"
+    },
+    {
+      "index": 303,
+      "category": "wrong_column",
+      "question": "How many offensive line players played for a college in Alabama?",
+      "predicted_sql": "SELECT COUNT(`Player`) FROM table WHERE `Position` = 'Offensive Line' AND `College` = 'Alabama'",
+      "gold_sql": "SELECT COUNT(`Hometown`) FROM table WHERE `College` = 'Alabama' AND `Position` = 'Offensive line'"
+    },
+    {
+      "index": 304,
+      "category": "multiple_errors",
+      "question": "How many players attended Hillcrest High School?",
+      "predicted_sql": "SELECT COUNT(`Player`) FROM table WHERE `School` = 'Hillcrest'",
+      "gold_sql": "SELECT COUNT(`College`) FROM table WHERE `School` = 'Hillcrest High School'"
+    },
+    {
+      "index": 305,
+      "category": "wrong_result_other",
+      "question": "Where was the hometown for the player that attended Shanley High School?",
+      "predicted_sql": "SELECT `Hometown` FROM table WHERE `School` = 'Shanley high school'",
+      "gold_sql": "SELECT `Hometown` FROM table WHERE `School` = 'Shanley High School'"
+    },
+    {
+      "index": 306,
+      "category": "wrong_result_other",
+      "question": "Which player went to the college Southern California?",
+      "predicted_sql": "SELECT `Player` FROM table WHERE `College` ='southern california'",
+      "gold_sql": "SELECT `Player` FROM table WHERE `College` = 'Southern California'"
+    },
+    {
+      "index": 307,
+      "category": "wrong_result_other",
+      "question": "Which college did the player attend that went to Mission Viejo High School?",
+      "predicted_sql": "SELECT `College` FROM table WHERE `School` ='mission viejo high school'",
+      "gold_sql": "SELECT `College` FROM table WHERE `School` = 'Mission Viejo High School'"
+    },
+    {
+      "index": 308,
+      "category": "wrong_where_val",
+      "question": "How many players hometown was Cincinnati, Ohio?",
+      "predicted_sql": "SELECT COUNT(`Player`) FROM table WHERE `Hometown` = 'Cincinnati, OH'",
+      "gold_sql": "SELECT COUNT(`Player`) FROM table WHERE `Hometown` = 'Cincinnati, Ohio'"
+    },
+    {
+      "index": 309,
+      "category": "wrong_result_other",
+      "question": "Which player's hometown was Pewaukee, Wisconsin?",
+      "predicted_sql": "SELECT `Player` FROM table WHERE `Hometown` = 'pewaukee, wisconsin'",
+      "gold_sql": "SELECT `Player` FROM table WHERE `Hometown` = 'Pewaukee, Wisconsin'"
+    },
+    {
+      "index": 310,
+      "category": "multiple_errors",
+      "question": "How many players' hometown was Akron, Ohio?",
+      "predicted_sql": "SELECT COUNT(`Player`) FROM table WHERE `Hometown` = 'Akron, OH'",
+      "gold_sql": "SELECT COUNT(`School`) FROM table WHERE `Hometown` = 'Akron, Ohio'"
+    },
+    {
+      "index": 311,
+      "category": "wrong_where_col",
+      "question": "Which player is from Utah?",
+      "predicted_sql": "SELECT `Player` FROM table WHERE `Hometown` = 'utah'",
+      "gold_sql": "SELECT `Player` FROM table WHERE `College` = 'Utah'"
+    },
+    {
+      "index": 312,
+      "category": "wrong_column",
+      "question": "Which player is from Saguaro High School?",
+      "predicted_sql": "SELECT `Player` FROM table WHERE `School` ='saguaro high school'",
+      "gold_sql": "SELECT `Position` FROM table WHERE `School` = 'Saguaro High School'"
+    },
+    {
+      "index": 313,
+      "category": "wrong_result_other",
+      "question": "Which player is from Joliet Catholic HIgh School?",
+      "predicted_sql": "SELECT `Player` FROM table WHERE `School` = 'joliet catholic high school'",
+      "gold_sql": "SELECT `Player` FROM table WHERE `School` = 'Joliet Catholic High School'"
+    },
+    {
+      "index": 314,
+      "category": "wrong_result_other",
+      "question": "Which school did the player then go to Auburn?",
+      "predicted_sql": "SELECT `School` FROM table WHERE `College` = 'auburn'",
+      "gold_sql": "SELECT `School` FROM table WHERE `College` = 'Auburn'"
+    },
+    {
+      "index": 316,
+      "category": "wrong_where_val",
+      "question": "What position did the kid from loganville, georgia play",
+      "predicted_sql": "SELECT `Position` FROM table WHERE `Hometown` = 'loganville, ga'",
+      "gold_sql": "SELECT `Position` FROM table WHERE `Hometown` = 'Loganville, Georgia'"
+    },
+    {
+      "index": 317,
+      "category": "wrong_where_val",
+      "question": "Where is longview high school",
+      "predicted_sql": "SELECT `Hometown` FROM table WHERE `School` = 'LongView High'",
+      "gold_sql": "SELECT `Hometown` FROM table WHERE `School` = 'Longview High School'"
+    },
+    {
+      "index": 319,
+      "category": "wrong_where_val",
+      "question": "Where is friendship collegiate charter school located",
+      "predicted_sql": "SELECT `Hometown` FROM table WHERE `School` = 'Friendship Collegiate Charter'",
+      "gold_sql": "SELECT `Hometown` FROM table WHERE `School` = 'Friendship Collegiate Charter School'"
+    },
+    {
+      "index": 320,
+      "category": "syntax_error",
+      "question": "Who had an evening gown score of 9.78?",
+      "predicted_sql": "SELECT `Interview` FROM table WHERE `Evening Grown` = '9.78'",
+      "gold_sql": "SELECT `Interview` FROM table WHERE `Evening Gown` = '9.78'"
+    },
+    {
+      "index": 321,
+      "category": "wrong_where_val",
+      "question": "How many interviews were there for Miss Virginia?",
+      "predicted_sql": "SELECT COUNT(`Interview`) FROM table WHERE `Country` = 'Miss Virginia'",
+      "gold_sql": "SELECT COUNT(`Interview`) FROM table WHERE `Country` = 'Virginia'"
+    },
+    {
+      "index": 322,
+      "category": "multiple_errors",
+      "question": "Who had a swimsuit score of 9.87?",
+      "predicted_sql": "SELECT `Interview` FROM table WHERE `Swimsuit` = '9.87'",
+      "gold_sql": "SELECT COUNT(`Country`) FROM table WHERE `Swimsuit` = '9.87'"
+    },
+    {
+      "index": 323,
+      "category": "syntax_error",
+      "question": "Who had evening gown score of 9.82?",
+      "predicted_sql": "SELECT `Interview` FROM table WHERE `Evening Grown` = '9.82'",
+      "gold_sql": "SELECT `Country` FROM table WHERE `Evening Gown` = '9.82'"
+    },
+    {
+      "index": 324,
+      "category": "syntax_error",
+      "question": "How many ladies scored a 9.89 for the evening gown?",
+      "predicted_sql": "SELECT COUNT(`Interview`) FROM table WHERE `Evening Grown` = '9.89'",
+      "gold_sql": "SELECT COUNT(`Swimsuit`) FROM table WHERE `Evening Gown` = '9.89'"
+    },
+    {
+      "index": 327,
+      "category": "multiple_errors",
+      "question": "How many episodes did David Jackson write and direct?",
+      "predicted_sql": "SELECT COUNT(`No. in series`) FROM table WHERE `Directed by` = 'David Jackson' AND `Written by` = 'David Jackson'",
+      "gold_sql": "SELECT COUNT(`Written by`) FROM table WHERE `Directed by` = 'David Jackson'"
+    },
+    {
+      "index": 331,
+      "category": "multiple_errors",
+      "question": "How many times did a center that attended Oral Roberts play for the Rockets?",
+      "predicted_sql": "SELECT `Years for Rockets` FROM table WHERE `Position` = 'center' AND `School/Club Team/Country` = 'oral roberts'",
+      "gold_sql": "SELECT COUNT(`Years for Rockets`) FROM table WHERE `Position` = 'Center' AND `School/Club Team/Country` = 'Oral Roberts'"
+    },
+    {
+      "index": 332,
+      "category": "wrong_result_other",
+      "question": "What was the player name who came from Australia?",
+      "predicted_sql": "SELECT `Player` FROM table WHERE `School/Club Team/Country` = 'australia'",
+      "gold_sql": "SELECT `Player` FROM table WHERE `School/Club Team/Country` = 'Australia'"
+    },
+    {
+      "index": 340,
+      "category": "wrong_agg",
+      "question": "How many communes when the arrondissement is cosne-cours-sur-loire?",
+      "predicted_sql": "SELECT COUNT(`Communes`) FROM table WHERE `Arrondissement` = 'Cosne-Cours-Sur-Loire'",
+      "gold_sql": "SELECT MIN(`Communes`) FROM table WHERE `Arrondissement` = 'Cosne-Cours-sur-Loire'"
+    },
+    {
+      "index": 343,
+      "category": "wrong_where_val",
+      "question": " what's the\u00a0introduced\u00a0where\u00a0notes\u00a0is 9 withdrawn in 1946 after fire",
+      "predicted_sql": "SELECT `Introduced` FROM table WHERE `Notes` = '`Withdrawn` in 1946 After Fire'",
+      "gold_sql": "SELECT `Introduced` FROM table WHERE `Notes` = '9 withdrawn in 1946 after fire'"
+    },
+    {
+      "index": 346,
+      "category": "wrong_where_val",
+      "question": " what's the\u00a0notes\u00a0where\u00a0withdrawn\u00a0is 1956\u201357",
+      "predicted_sql": "SELECT `Notes` FROM table WHERE `Withdrawn` = '1956-57'",
+      "gold_sql": "SELECT `Notes` FROM table WHERE `Withdrawn` = '1956\u201357'"
+    },
+    {
+      "index": 347,
+      "category": "wrong_result_other",
+      "question": "Who was the lyricist for gopal krishna and co singer of solo?",
+      "predicted_sql": "SELECT `Lyricist` FROM table WHERE `Co-singer` ='solo' AND `Film name` = 'gopal krishna'",
+      "gold_sql": "SELECT `Lyricist` FROM table WHERE `Film name` = 'Gopal Krishna' AND `Co-singer` = 'Solo'"
+    },
+    {
+      "index": 348,
+      "category": "wrong_where_col",
+      "question": "What was the number of music directors where the suresh wadkar co singer of bhayanak?",
+      "predicted_sql": "SELECT COUNT(`Music director`) FROM table WHERE `Co-singer` = 'Suresh Wadkar' AND `Song name` = '\"Bhayanak\"'",
+      "gold_sql": "SELECT COUNT(`Music director`) FROM table WHERE `Co-singer` = 'Suresh Wadkar' AND `Film name` = 'Bhayanak'"
+    },
+    {
+      "index": 354,
+      "category": "multiple_errors",
+      "question": "who is the music director for the song \"jekhanete jaai ami 1\"?",
+      "predicted_sql": "SELECT `Music director` FROM table WHERE `Song name` = '\"JekhaneTe JaAi Ami 1\"'",
+      "gold_sql": "SELECT `Music director` FROM table WHERE `Song name` = '\"Jekhanete Jaai Ami 1\"'"
+    },
+    {
+      "index": 358,
+      "category": "multiple_errors",
+      "question": "Where did Test Mission: War Heads and Missile Payload launch when there was a partial failure?",
+      "predicted_sql": "SELECT `Launch site` FROM table WHERE `Results` = 'partial' AND `Mission` = 'test mission: war heads and missile payload'",
+      "gold_sql": "SELECT `Launch site` FROM table WHERE `Mission` = 'Test Mission: war heads and Missile payload' AND `Results` = 'Partial Failure'"
+    },
+    {
+      "index": 361,
+      "category": "wrong_column",
+      "question": "Which authority has a rocket launch called rehnuma-8?",
+      "predicted_sql": "SELECT `Institutional authority` FROM table WHERE `Rocket launch` = 'RehNUMA-8'",
+      "gold_sql": "SELECT `Institutional authority` FROM table WHERE `Rocket launch` = 'Rehnuma-8'"
+    },
+    {
+      "index": 362,
+      "category": "wrong_column",
+      "question": "Which authority has a rocket launch called shahpar-2?",
+      "predicted_sql": "SELECT `Institutional authority` FROM table WHERE `Rocket launch` ='shahpar-2'",
+      "gold_sql": "SELECT `Institutional authority` FROM table WHERE `Rocket launch` = 'Shahpar-2'"
+    },
+    {
+      "index": 363,
+      "category": "multiple_errors",
+      "question": "Which authority has a rocket launch called rehbar-5?",
+      "predicted_sql": "SELECT `Institutional authority` FROM table WHERE `Rocket launch` = 'Rehbar-5'",
+      "gold_sql": "SELECT COUNT(`Derivatives`) FROM table WHERE `Rocket launch` = 'Rehbar-5'"
+    },
+    {
+      "index": 364,
+      "category": "multiple_errors",
+      "question": "What denominations are the stamps with themes opera, l\u00e9opold simoneau and pierrette alarie?",
+      "predicted_sql": "SELECT `Denomination` FROM table WHERE `Theme` = 'Opera' AND `Illustration` = '\"L\u00e9opold Simoneau\" & \"Pierrette Alarie\"'",
+      "gold_sql": "SELECT `Denomination` FROM table WHERE `Theme` = 'Opera, L\u00e9opold Simoneau and Pierrette Alarie'"
+    },
+    {
+      "index": 368,
+      "category": "wrong_where_val",
+      "question": "Who is the designer of the Christmas: Winter Fun (USA) stamp?",
+      "predicted_sql": "SELECT `Design` FROM table WHERE `Theme` = 'Christmas: Winter fun'",
+      "gold_sql": "SELECT `Design` FROM table WHERE `Theme` = 'Christmas: Winter Fun (USA)'"
+    },
+    {
+      "index": 369,
+      "category": "wrong_result_other",
+      "question": "How many stamps were designed for the theme of XII Summit de la Francophonie?",
+      "predicted_sql": "SELECT COUNT(`Design`) FROM table WHERE `Theme` = 'XII summit De La Francophonie'",
+      "gold_sql": "SELECT COUNT(`Design`) FROM table WHERE `Theme` = 'XII Summit de la Francophonie'"
+    },
+    {
+      "index": 370,
+      "category": "multiple_errors",
+      "question": "Where is the first day cover cancellation for the 3 April 2008 IIHF World Championships, Quebec City stamp?",
+      "predicted_sql": "SELECT `First Day Cover Cancellation` FROM table WHERE `Theme` = 'IIIHf world championships' AND `Date of Issue` = 'March 27, 2010'",
+      "gold_sql": "SELECT `First Day Cover Cancellation` FROM table WHERE `Date of Issue` = '3 April 2008' AND `Theme` = 'IIHF World Championships, Quebec City'"
+    },
+    {
+      "index": 375,
+      "category": "wrong_agg",
+      "question": "What numbr on the list had a peak rating of 42?",
+      "predicted_sql": "SELECT COUNT(`Rank`) FROM table WHERE `Peak` = 42",
+      "gold_sql": "SELECT MIN(`Rank`) FROM table WHERE `Peak` = 42"
+    },
+    {
+      "index": 376,
+      "category": "wrong_where_val",
+      "question": " what's the\u00a0electorate\u00a0where\u00a0election date\u00a0is 16 cannot handle non-empty timestamp argument!",
+      "predicted_sql": "SELECT `Electorate` FROM table WHERE `Election date` = '16'",
+      "gold_sql": "SELECT `Electorate` FROM table WHERE `Election date` = '16 Cannot handle non-empty timestamp argument!'"
+    },
+    {
+      "index": 377,
+      "category": "wrong_result_other",
+      "question": " what's the\u00a0province\u00a0where\u00a0member\u00a0is frederick merriman category:articles with hcards",
+      "predicted_sql": "SELECT `Province` FROM table WHERE `Member` = 'Frederick Merriman Category:Articles With HCards'",
+      "gold_sql": "SELECT `Province` FROM table WHERE `Member` = 'Frederick Merriman Category:Articles with hCards'"
+    },
+    {
+      "index": 379,
+      "category": "wrong_column",
+      "question": " what's the\u00a0election date\u00a0where\u00a0member\u00a0is william richmond category:articles with hcards",
+      "predicted_sql": "SELECT `Election date` FROM table WHERE `Member` = 'William Richmond Category:Articles With HCards'",
+      "gold_sql": "SELECT `Election date` FROM table WHERE `Member` = 'William Richmond Category:Articles with hCards'"
+    },
+    {
+      "index": 380,
+      "category": "wrong_result_other",
+      "question": " what's the\u00a0province\u00a0where\u00a0member\u00a0is dingley brittin category:articles with hcards",
+      "predicted_sql": "SELECT `Province` FROM table WHERE `Member` = 'Dingley Brittin Category:Articles With HCards'",
+      "gold_sql": "SELECT `Province` FROM table WHERE `Member` = 'Dingley Brittin Category:Articles with hCards'"
+    },
+    {
+      "index": 385,
+      "category": "wrong_agg",
+      "question": "What is the total amount of allied-unrelated where the component is human capital?",
+      "predicted_sql": "SELECT `Allied-Unrelated` FROM table WHERE `Component` = 'Human Capital'",
+      "gold_sql": "SELECT COUNT(`Allied-Unrelated`) FROM table WHERE `Component` = 'Human Capital'"
+    },
+    {
+      "index": 386,
+      "category": "multiple_errors",
+      "question": "How many integrated allied-related are there?",
+      "predicted_sql": "SELECT COUNT(`Integrated`) FROM table WHERE `Allied-Related` = '`Allied-Unrelated`'",
+      "gold_sql": "SELECT `Integrated` FROM table WHERE `Allied-Related` = 'Many'"
+    },
+    {
+      "index": 387,
+      "category": "wrong_result_other",
+      "question": "What is the name of the integrated where the component are customers?",
+      "predicted_sql": "SELECT `Integrated` FROM table WHERE `Component` = 'customers'",
+      "gold_sql": "SELECT `Integrated` FROM table WHERE `Component` = 'Customers'"
+    },
+    {
+      "index": 388,
+      "category": "multiple_errors",
+      "question": "what is the integrated in which the holding allied-unrelated is many?",
+      "predicted_sql": "SELECT `Integrated` FROM table WHERE `Allied-Unrelated` ='many' AND `Holding` = '`Allied-Related`'",
+      "gold_sql": "SELECT `Holding` FROM table WHERE `Allied-Unrelated` = 'Many'"
+    },
+    {
+      "index": 389,
+      "category": "wrong_column",
+      "question": "What is the name of the integrated where allied-related is shared?",
+      "predicted_sql": "SELECT `Integrated` FROM table WHERE `Allied-Related` = 'Shared'",
+      "gold_sql": "SELECT `Component` FROM table WHERE `Allied-Related` = 'Shared'"
+    },
+    {
+      "index": 396,
+      "category": "multiple_errors",
+      "question": "What team were the Bulls hosted by on December 7?",
+      "predicted_sql": "SELECT `Team` FROM table WHERE `Date` = 'December 7' AND `Location Attendance` = 'Bulls Hosted By'",
+      "gold_sql": "SELECT `Team` FROM table WHERE `Date` = 'December 7'"
+    },
+    {
+      "index": 398,
+      "category": "wrong_agg",
+      "question": "How many games was Damien Wilkins (27) the high scorer?",
+      "predicted_sql": "SELECT COUNT(`Game`) FROM table WHERE `High points` = 'Damien Wilkins (27)'",
+      "gold_sql": "SELECT MIN(`Game`) FROM table WHERE `High points` = 'Damien Wilkins (27)'"
+    },
+    {
+      "index": 405,
+      "category": "wrong_agg",
+      "question": "What number (#) is associated with the Name Ron Baxter?",
+      "predicted_sql": "SELECT `#` FROM table WHERE `Name` = 'ron baxter'",
+      "gold_sql": "SELECT COUNT(`#`) FROM table WHERE `Name` = 'Ron Baxter'"
+    },
+    {
+      "index": 407,
+      "category": "multiple_errors",
+      "question": "Which home town was the high school Catholic University located in?",
+      "predicted_sql": "SELECT `Home Town` FROM table WHERE `High School` = 'Catholic'",
+      "gold_sql": "SELECT `Home Town` FROM table WHERE `High School` = 'Catholic University'"
+    },
+    {
+      "index": 409,
+      "category": "wrong_where_val",
+      "question": "What height was the forward position at Crockett High School?",
+      "predicted_sql": "SELECT `Height` FROM table WHERE `Position` = 'Forward' AND `High School` = 'Crockett HS'",
+      "gold_sql": "SELECT `Height` FROM table WHERE `Position` = 'Forward' AND `High School` = 'Crockett'"
+    },
+    {
+      "index": 410,
+      "category": "wrong_result_other",
+      "question": "What are the commissioned for scotts, greenock and chieftain?",
+      "predicted_sql": "SELECT `Commissioned` FROM table WHERE `Builder` ='scotts, greenock' AND `Name` = 'chieftain'",
+      "gold_sql": "SELECT `Commissioned` FROM table WHERE `Builder` = 'Scotts, Greenock' AND `Name` = 'Chieftain'"
+    },
+    {
+      "index": 413,
+      "category": "multiple_errors",
+      "question": " what's the\u00a0percent yes\u00a0where\u00a0voted yes\u00a0is 2410119",
+      "predicted_sql": "SELECT `Percent Yes` FROM table WHERE `Voted Yes` = 2401191",
+      "gold_sql": "SELECT `Percent Yes` FROM table WHERE `Voted Yes` = 2410119"
+    },
+    {
+      "index": 414,
+      "category": "syntax_error",
+      "question": " what's the\u00a0jurisdiction\u00a0where\u00a0percent yes\u00a0is 43.4",
+      "predicted_sql": "SELECT `Jurisdiction` FROM table WHERE `%Yes` = '43.4'",
+      "gold_sql": "SELECT `Jurisdiction` FROM table WHERE `Percent Yes` = '43.4'"
+    },
+    {
+      "index": 418,
+      "category": "wrong_column",
+      "question": " what's the\u00a0deadline for completion\u00a0where\u00a0description\u00a0is iphone recall within the first 3 months of release",
+      "predicted_sql": "SELECT `Deadline for completion` FROM table WHERE `Description` = 'iPhone Recall Within The First 3 Months Of Release'",
+      "gold_sql": "SELECT `Deadline for completion` FROM table WHERE `Description` = 'iPhone recall within the first 3 months of release'"
+    },
+    {
+      "index": 421,
+      "category": "wrong_result_other",
+      "question": "what is the total number of\u00a0deadline for completion\u00a0where\u00a0description\u00a0is facebook becomes a publicly traded company",
+      "predicted_sql": "SELECT COUNT(`Deadline for completion`) FROM table WHERE `Description` = 'Facebook Becomes A Publicly Traded Company'",
+      "gold_sql": "SELECT COUNT(`Deadline for completion`) FROM table WHERE `Description` = 'Facebook becomes a publicly traded company'"
+    },
+    {
+      "index": 423,
+      "category": "syntax_error",
+      "question": "The earliest year is 1996.",
+      "predicted_sql": "SELECT MIN(`Year`) FROM table WHERE ``Product`ion` = 'earliest' AND `Import` = 'year'",
+      "gold_sql": "SELECT MIN(`Year`) FROM table"
+    },
+    {
+      "index": 424,
+      "category": "multiple_errors",
+      "question": "There are 5 imports of plywood.",
+      "predicted_sql": "SELECT COUNT(`Year`) FROM table WHERE `Product` = 'Plywood' AND `Import` = '5 Imports'",
+      "gold_sql": "SELECT `Import` FROM table WHERE `Product` = 'Plywood'"
+    },
+    {
+      "index": 429,
+      "category": "wrong_result_other",
+      "question": "How many times did district of Columbia receive a score for evening gown?",
+      "predicted_sql": "SELECT COUNT(`Evening Gown`) FROM table WHERE `State` = 'District Of Columbia'",
+      "gold_sql": "SELECT COUNT(`Evening Gown`) FROM table WHERE `State` = 'District of Columbia'"
+    },
+    {
+      "index": 433,
+      "category": "multiple_errors",
+      "question": "Name the gt1 winning team for #54 bell motorsports",
+      "predicted_sql": "SELECT `GT1 Winning Team` FROM table WHERE `CA Winning Team` = '#54 Bell Motorsports'",
+      "gold_sql": "SELECT `GT1 Winning Team` FROM table WHERE `GT2 Winning Team` = '#54 Bell Motorsports'"
+    },
+    {
+      "index": 438,
+      "category": "multiple_errors",
+      "question": "What is the pick number of the defensive back?",
+      "predicted_sql": "SELECT `Overall Pick #` FROM table WHERE `Position` = 'Defensive Back'",
+      "gold_sql": "SELECT COUNT(`Overall Pick #`) FROM table WHERE `Position` = 'Defensive Back'"
+    },
+    {
+      "index": 440,
+      "category": "wrong_result_other",
+      "question": "What is the college of the afl team of buffalo bills?",
+      "predicted_sql": "SELECT `College` FROM table WHERE `AFL Team` = 'buffalo bills'",
+      "gold_sql": "SELECT `College` FROM table WHERE `AFL Team` = 'Buffalo Bills'"
+    },
+    {
+      "index": 444,
+      "category": "syntax_error",
+      "question": "What was the women's singles were men's doubles were steen fladberg jens peter nierhoff?",
+      "predicted_sql": "SELECT `Wo`Mens singles`` FROM table WHERE `Mens doubles` = 'Steen Fladbjerg Jens Peter Nierhoff'",
+      "gold_sql": "SELECT `Womens singles` FROM table WHERE `Mens doubles` = 'Steen Fladberg Jens Peter Nierhoff'"
+    },
+    {
+      "index": 448,
+      "category": "wrong_result_other",
+      "question": "what is the total number of\u00a0publisher\u00a0where\u00a0first appearance\u00a0is daredevil #1",
+      "predicted_sql": "SELECT COUNT(`Publisher`) FROM table WHERE `First Appearance` = 'DareDevil #1'",
+      "gold_sql": "SELECT COUNT(`Publisher`) FROM table WHERE `First Appearance` = 'Daredevil #1'"
+    },
+    {
+      "index": 449,
+      "category": "wrong_column",
+      "question": " what's the\u00a0cover date\u00a0where\u00a0character(s)\u00a0is sandman (wesley dodds)",
+      "predicted_sql": "SELECT `Cover Date` FROM table WHERE `Character(s)` = 'SandMan (Wesley Dodds)'",
+      "gold_sql": "SELECT `Cover Date` FROM table WHERE `Character(s)` = 'Sandman (Wesley Dodds)'"
+    },
+    {
+      "index": 450,
+      "category": "syntax_error",
+      "question": " what's the\u00a0cover date\u00a0where\u00a0character(s)\u00a0is x-men ; magneto",
+      "predicted_sql": "SELECT `Cover Date` FROM table WHERE `Character(s)` = 'X-Men",
+      "gold_sql": "SELECT `Cover Date` FROM table WHERE `Character(s)` = 'X-Men ; Magneto'"
+    },
+    {
+      "index": 452,
+      "category": "multiple_errors",
+      "question": "What theme placed as #3 in the finale?",
+      "predicted_sql": "SELECT `Theme` FROM table WHERE `Order #` = 'Finale' AND `Episode` = '# 3'",
+      "gold_sql": "SELECT `Result` FROM table WHERE `Theme` = 'Finale' AND `Order #` = '3'"
+    },
+    {
+      "index": 455,
+      "category": "multiple_errors",
+      "question": "What is the order number for songs by the original artist Luis Fonsi?",
+      "predicted_sql": "SELECT `Order #` FROM table WHERE `Original artist` = 'Luis Fonso'",
+      "gold_sql": "SELECT `Order #` FROM table WHERE `Original artist` = 'Luis Fonsi'"
+    },
+    {
+      "index": 456,
+      "category": "multiple_errors",
+      "question": "What is the song choice when the theme is not aired?",
+      "predicted_sql": "SELECT `Song choice` FROM table WHERE `Theme` = 'Not Aired'",
+      "gold_sql": "SELECT `Theme` FROM table WHERE `Song choice` = 'Not Aired'"
+    },
+    {
+      "index": 458,
+      "category": "syntax_error",
+      "question": "Who won the womens doubles in 2002?",
+      "predicted_sql": "SELECT `Wo`Mens doubles`` FROM table WHERE `Season` = 2002",
+      "gold_sql": "SELECT `Womens doubles` FROM table WHERE `Season` = 2002"
+    },
+    {
+      "index": 459,
+      "category": "multiple_errors",
+      "question": "How many total titles did Rupesh Kumar Sanave Thomas and Jwala Gutta Ashwini Ponnappa win total?",
+      "predicted_sql": "SELECT COUNT(`Womens doubles`) FROM table WHERE `Mens doubles` = 'Rupesh Kumar sanave thomas' AND `Mixed doubles` = 'Jwala guttA ashwinI ponnAppa'",
+      "gold_sql": "SELECT COUNT(`Womens singles`) FROM table WHERE `Mens doubles` = 'Rupesh Kumar Sanave Thomas' AND `Womens doubles` = 'Jwala Gutta Ashwini Ponnappa'"
+    },
+    {
+      "index": 460,
+      "category": "syntax_error",
+      "question": "In womens doubles and mens singles, what years did Arvind Bhat or Valiyaveetil Diju Jwala Gutta win?",
+      "predicted_sql": "SELECT `Wo`Mens doubles`` FROM table WHERE `Mens singles` = 'Arvind Bhat' AND `Mixed doubles` = 'Valiyaveetil Diju Jwala Gutta'",
+      "gold_sql": "SELECT `Womens doubles` FROM table WHERE `Mens singles` = 'Arvind Bhat' AND `Mixed doubles` = 'Valiyaveetil Diju Jwala Gutta'"
+    },
+    {
+      "index": 461,
+      "category": "multiple_errors",
+      "question": "How many titles did Trupti Murgunde claim?",
+      "predicted_sql": "SELECT COUNT(`Womens singles`) FROM table WHERE `Mens singles` = 'Trupti Murgunde'",
+      "gold_sql": "SELECT `Womens doubles` FROM table WHERE `Womens singles` = 'Trupti Murgunde'"
+    },
+    {
+      "index": 463,
+      "category": "wrong_result_other",
+      "question": "What is the total number of fate for pennant of u33?",
+      "predicted_sql": "SELECT COUNT(`Fate`) FROM table WHERE `Pennant` = 'u33'",
+      "gold_sql": "SELECT COUNT(`Fate`) FROM table WHERE `Pennant` = 'U33'"
+    },
+    {
+      "index": 465,
+      "category": "wrong_where_col",
+      "question": "What is the name for 30 september 1943?",
+      "predicted_sql": "SELECT `Name` FROM table WHERE `Laid Down` = '30 September 1934'",
+      "gold_sql": "SELECT `Name` FROM table WHERE `Launched` = '30 September 1943'"
+    },
+    {
+      "index": 466,
+      "category": "wrong_where_val",
+      "question": "What is the comissioned for 4 may 1943?",
+      "predicted_sql": "SELECT `Commissioned` FROM table WHERE `Laid Down` = '04 May 1943'",
+      "gold_sql": "SELECT `Commissioned` FROM table WHERE `Laid Down` = '4 May 1943'"
+    },
+    {
+      "index": 468,
+      "category": "multiple_errors",
+      "question": "Who was the writters for the episode directed by Richard L. Bare, no. 8 in season?",
+      "predicted_sql": "SELECT `Written by` FROM table WHERE `Directed by` = 'Richard L. Bare' AND `No. in Season` < 8",
+      "gold_sql": "SELECT `Written by` FROM table WHERE `Directed by` = 'Richard L. Bare' AND `No. in season` = 8"
+    },
+    {
+      "index": 471,
+      "category": "wrong_result_other",
+      "question": "What year is Japan the country?",
+      "predicted_sql": "SELECT `Year` FROM table WHERE `Country` = 'japan'",
+      "gold_sql": "SELECT `Year` FROM table WHERE `Country` = 'Japan'"
+    },
+    {
+      "index": 472,
+      "category": "wrong_result_other",
+      "question": "What is the year that Dewi Claire Schreefel is the champion?",
+      "predicted_sql": "SELECT `Year` FROM table WHERE `Champion` = 'dewi claire schreefel'",
+      "gold_sql": "SELECT `Year` FROM table WHERE `Champion` = 'Dewi Claire Schreefel'"
+    },
+    {
+      "index": 477,
+      "category": "multiple_errors",
+      "question": "What is the general classification with the winner being evgeni berzin?",
+      "predicted_sql": "SELECT `General classification` FROM table WHERE `Winner` = 'Evgeni Berzin'",
+      "gold_sql": "SELECT COUNT(`General classification`) FROM table WHERE `Winner` = 'Evgeni Berzin'"
+    },
+    {
+      "index": 478,
+      "category": "multiple_errors",
+      "question": "What is the intergiro classification of alexander gontchenkov?",
+      "predicted_sql": "SELECT `Intergiro classification` FROM table WHERE `Winner` = 'Alexander Gontchenko'",
+      "gold_sql": "SELECT `Intergiro classification` FROM table WHERE `Winner` = 'Alexander Gontchenkov'"
+    },
+    {
+      "index": 480,
+      "category": "wrong_where_val",
+      "question": "What is the status of channel 44.1?",
+      "predicted_sql": "SELECT `Status` FROM table WHERE `Channel` = 'channel 44.1'",
+      "gold_sql": "SELECT `Status` FROM table WHERE `Channel` = '44.1'"
+    },
+    {
+      "index": 481,
+      "category": "wrong_result_other",
+      "question": "What station has a univision network affiliation?",
+      "predicted_sql": "SELECT `Station` FROM table WHERE `Network Affiliation` = 'univision'",
+      "gold_sql": "SELECT `Station` FROM table WHERE `Network Affiliation` = 'Univision'"
+    },
+    {
+      "index": 482,
+      "category": "wrong_result_other",
+      "question": "How many season did sportfreunde siegen win best supported club?",
+      "predicted_sql": "SELECT COUNT(`Season`) FROM table WHERE `Best supported Club` = 'SportFreunde Siegen'",
+      "gold_sql": "SELECT COUNT(`Season`) FROM table WHERE `Best supported Club` = 'Sportfreunde Siegen'"
+    },
+    {
+      "index": 490,
+      "category": "multiple_errors",
+      "question": "What is the original team of the celebrity who had the result 08 fired in week 10 (2008-03-06)",
+      "predicted_sql": "SELECT `Original Team` FROM table WHERE `Result` = 'Fired' AND `Age` < 38",
+      "gold_sql": "SELECT `Original Team` FROM table WHERE `Result` = '08 Fired in week 10 (2008-03-06)'"
+    },
+    {
+      "index": 491,
+      "category": "wrong_where_val",
+      "question": "Which celebrity was raised 03?",
+      "predicted_sql": "SELECT `Celebrity` FROM table WHERE `Raised` = '\u00a33'",
+      "gold_sql": "SELECT `Celebrity` FROM table WHERE `Raised` = '03'"
+    },
+    {
+      "index": 493,
+      "category": "wrong_where_val",
+      "question": "What is the background of the celebrity who had the result 13 the celebrity apprentice (2008-03-27)?",
+      "predicted_sql": "SELECT `Background` FROM table WHERE `Result` = '13 The `Celebrity` Apprentice'",
+      "gold_sql": "SELECT `Background` FROM table WHERE `Result` = '13 The Celebrity Apprentice (2008-03-27)'"
+    },
+    {
+      "index": 494,
+      "category": "multiple_errors",
+      "question": "Where is Tamunosiki Atorudibo from",
+      "predicted_sql": "SELECT `Location` FROM table WHERE `Athlete` = 'Tamunousiki Atorodibu'",
+      "gold_sql": "SELECT `Country` FROM table WHERE `Athlete` = 'Tamunosiki Atorudibo'"
+    },
+    {
+      "index": 496,
+      "category": "multiple_errors",
+      "question": "What was the stats of Trinidad and Tobago",
+      "predicted_sql": "SELECT `Fastest time (s)` FROM table WHERE `Country` = 'Trinidad and Tobago'",
+      "gold_sql": "SELECT `Wind (m/s)` FROM table WHERE `Country` = 'Trinidad and Tobago'"
+    }
+  ]
+}

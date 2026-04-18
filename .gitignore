@@ -205,5 +205,25 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
-/data/
+# ── Project-specific ──────────────────────────────────────────────────────────
+
+# OS files
 .DS_Store
+
+# Editor / IDE settings
+.vscode/
+
+# Large data files (regenerate with: python src/data/prepare_dataset.py)
+data/processed/*.jsonl
+
+# Model weights and adapters (too large for git — use HuggingFace Hub)
+models/
+*.safetensors
+*.bin
+
+# Training outputs and checkpoints
+results_v2/
+checkpoint-*/
+wandb/
+
+# Result JSON files — tracked (all < 200 KB, contain metrics + predictions)
