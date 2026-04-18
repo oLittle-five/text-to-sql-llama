@@ -226,4 +226,7 @@ results_v2/
 checkpoint-*/
 wandb/
 
+# ChromaDB vector store (regenerate with: python -m src.rag.build_index)
+data/chroma_db/
+
 # Result JSON files — tracked (all < 200 KB, contain metrics + predictions)
