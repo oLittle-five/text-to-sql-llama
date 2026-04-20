@@ -417,6 +417,42 @@ more diverse (syntax failures, structural mistakes) rather than surface-level ca
 
 ---
 
+### Step 11: RAG Baseline — Few-Shot Retrieval (Notebook 11)
+
+**Notebook**: `notebooks/11_rag_baseline.ipynb`
+
+Built a retrieval-augmented generation (RAG) pipeline as an alternative to fine-tuning:
+1. Embedded all 56,355 training examples into ChromaDB using `all-MiniLM-L6-v2`
+2. For each test question, retrieved the top-3 most similar training examples by cosine similarity
+3. Assembled a few-shot prompt with those examples as demonstrations
+4. Sent to the **base** Llama-3-8B-Instruct model (no fine-tuning, no chat prefix)
+
+Generation config: `max_new_tokens=128`, `do_sample=False`, `repetition_penalty=1.2`.
+Note: `repetition_penalty=1.2` was required to prevent output looping with the longer
+few-shot prompts; the zero-shot baseline did not need this.
+
+| Approach | Exec Accuracy | Syntax Error Rate |
+|---|---|---|
+| Base model (zero-shot) | 37.2% | 21.8% |
+| **RAG baseline (3-shot)** | **44.0% (220/500)** | **19.6%** |
+| Fine-tuned v1-fixed | 51.8% | 5.4% |
+
+**Key finding: RAG improves task comprehension but not output format compliance.**
+RAG gives +6.8% over zero-shot, showing that few-shot examples help the model understand
+the text-to-SQL task. However, fine-tuning gives +14.6% — nearly double the improvement.
+
+More revealingly, RAG barely reduces syntax errors (19.6% vs 21.8%), while fine-tuning
+slashes them to 5.4%. Inspection of RAG predictions shows the base model still "thinks in
+general SQL" — it generates `LIKE '%...'`, `DISTINCT`, column aliases (`AS`), and complex
+multi-clause WHERE conditions. These are valid SQL constructs but fall outside WikiSQL's
+restricted grammar (single-table SELECT with `=`/`>`/`<` operators only). Fine-tuning
+teaches the model not just *what* to query but *how* to express it within the target grammar.
+
+This confirms that fine-tuning is the stronger approach for domain-specific SQL generation,
+while RAG is a viable low-effort baseline when retraining is not feasible.
+
+---
+
 ## Key Lessons Learned
 
 1. **Train/inference format consistency is critical**: The single biggest factor in model
@@ -444,6 +480,12 @@ more diverse (syntax failures, structural mistakes) rather than surface-level ca
    relative to v1. It is unclear which changes helped and which hurt. The simpler fix
    (adjusting inference format for v1) dramatically outperformed the retrained v2 model.
 
+7. **RAG improves comprehension but not format compliance**: Few-shot retrieval boosts
+   accuracy from 37.2% to 44.0%, but the base model still generates general SQL constructs
+   (LIKE, DISTINCT, aliases) outside WikiSQL's restricted grammar. Fine-tuning teaches both
+   task understanding and output format, achieving 51.8% with only 5.4% syntax errors vs
+   RAG's 19.6%. For domain-specific constrained generation, fine-tuning > RAG.
+
 ---
 
 ## File Reference
@@ -463,6 +505,7 @@ more diverse (syntax failures, structural mistakes) rather than surface-level ca
 | `notebooks/08_verify_eval_pipeline.ipynb` | Verification that all results are consistent under `src/eval/` |
 | `notebooks/09_error_analysis.ipynb` | Error categorization and visualization for v1-fixed model |
 | `notebooks/10_post_processing_ablation.ipynb` | Case-insensitive evaluation ablation (51.8% → 68.2%) |
+| `notebooks/11_rag_baseline.ipynb` | RAG few-shot baseline: retrieval + base model (44.0%) |
 
 ### Scripts and Source
 
@@ -475,6 +518,8 @@ more diverse (syntax failures, structural mistakes) rather than surface-level ca
 | `src/eval/execution_accuracy.py` | Primary metric: execute-and-compare |
 | `src/eval/exact_match.py` | Secondary metric: normalized string matching |
 | `src/eval/error_analysis.py` | Failure categorization: syntax, column, agg, WHERE errors |
+| `src/rag/build_index.py` | Embed WikiSQL training examples into ChromaDB |
+| `src/rag/rag_pipeline.py` | Retrieve similar examples and build few-shot prompts |
 
 ### Results
 
@@ -489,4 +534,5 @@ more diverse (syntax failures, structural mistakes) rather than surface-level ca
 | `results/v2_training_results.json` | V2 training losses by step |
 | `results/error_analysis_v1_fixed.json` | Per-example error categorization from notebook 09 |
 | `results/post_processing_ablation.json` | Case-sensitive vs case-insensitive accuracy comparison |
+| `results/rag_results.json` | RAG baseline predictions and metrics (44.0%) |
 | `results/error_analysis_*.png` | Visualization charts from error analysis (distribution, aggregation, pie, WHERE complexity) |

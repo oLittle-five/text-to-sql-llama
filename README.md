@@ -9,6 +9,7 @@ with only ~20 MB of trainable adapter weights.
 
 - **QLoRA fine-tuning** with 4-bit NF4 quantization — trains on a single T4 16 GB GPU
 - **51.8% execution accuracy** (up from 37.2% baseline), reaching **68.2%** with case-insensitive evaluation; syntax errors reduced from 21.8% to 5.4%
+- **RAG baseline comparison**: retrieval-augmented few-shot prompting achieves 44.0% — fine-tuning outperforms RAG by +7.8%
 - **Controlled ablation studies** isolating the effects of post-processing, generation parameters, and prompt format
 - Documented a critical finding about **train/inference format consistency** with TRL's SFTTrainer and Llama-3's chat template
 
@@ -17,6 +18,7 @@ with only ~20 MB of trainable adapter weights.
 | Configuration | Exec Accuracy | Syntax Error Rate |
 |---|---|---|
 | Base Llama-3-8B-Instruct (no fine-tuning) | 37.2% | 21.8% |
+| + RAG 3-shot retrieval (no fine-tuning) | 44.0% | 19.6% |
 | + QLoRA v1 (wrong inference format) | 25.4% | 27.4% |
 | + QLoRA v2 (retrained with format fix) | 29.0% | 30.2% |
 | **+ QLoRA v1 (chat template fix at inference)** | **51.8%** | **5.4%** |
@@ -65,7 +67,8 @@ text-to-sql-llama/
 │   ├── 07_base_chat_prefix.ipynb         # Chat prefix ablation on base model (0.0%)
 │   ├── 08_verify_eval_pipeline.ipynb    # Verification: all results consistent under src/eval/
 │   ├── 09_error_analysis.ipynb          # Error categorization and visualization
-│   └── 10_post_processing_ablation.ipynb  # Case-insensitive evaluation ablation
+│   ├── 10_post_processing_ablation.ipynb  # Case-insensitive evaluation ablation
+│   └── 11_rag_baseline.ipynb            # RAG few-shot baseline (44.0%)
 ├── scripts/
 │   ├── fine_tune_v2.py                   # V2 training script (documented changes)
 │   └── eval_v2.py                        # Standalone V2 evaluation script
@@ -80,7 +83,9 @@ text-to-sql-llama/
 │   │   ├── execution_accuracy.py         # Primary metric: execute and compare
 │   │   ├── exact_match.py               # Secondary metric: string matching
 │   │   └── error_analysis.py            # Failure categorization by error type
-│   ├── rag/                              # RAG baseline pipeline (planned)
+│   ├── rag/
+│   │   ├── build_index.py               # Embed training examples into ChromaDB
+│   │   └── rag_pipeline.py              # Retrieve similar examples → few-shot prompt
 │   ├── serving/                          # FastAPI serving endpoint (planned)
 │   └── dashboard/                        # Streamlit comparison UI (planned)
 ├── data/
