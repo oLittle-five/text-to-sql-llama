@@ -1,0 +1,13 @@
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W"]
+ignore = [
+    "E402",   # module-level import not at top — scripts converted from notebooks
+    "E501",   # line too long — let formatter handle it
+    "E722",   # bare except — used in data conversion fallbacks
+    "E741",   # ambiguous variable name 'l' — used in list comprehensions
+    "F841",   # local variable assigned but never used — common in notebooks
+]

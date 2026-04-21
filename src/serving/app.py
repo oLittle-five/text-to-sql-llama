@@ -21,7 +21,6 @@ Endpoints:
 import os
 import time
 from contextlib import asynccontextmanager
-from typing import Optional
 
 import torch
 from fastapi import FastAPI, HTTPException

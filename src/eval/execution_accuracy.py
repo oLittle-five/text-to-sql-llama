@@ -1,4 +1,3 @@
-import json
 import os
 import sys
 
@@ -102,7 +101,7 @@ if __name__ == "__main__":
         ]
 
     metrics = evaluate_dataset(gold_predictions, examples)
-    print(f"Sanity check (gold SQL as predictions):")
+    print("Sanity check (gold SQL as predictions):")
     print(f"  Execution accuracy: {metrics['execution_accuracy']:.1%}")
     print(f"  Syntax error rate:  {metrics['syntax_error_rate']:.1%}")
     print(f"  Total examples:     {metrics['total']}")

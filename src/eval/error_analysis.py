@@ -14,7 +14,6 @@ Classifies prediction errors into categories:
   - multiple_errors: more than one of the above
 """
 
-import json
 import os
 import re
 import sys

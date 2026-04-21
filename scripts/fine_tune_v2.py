@@ -175,7 +175,6 @@ print(f"Pushed to Hub: {ADAPTER_REPO}")
 
 
 # ── CELL 9: Save training results ─────────────────────────────────────────────
-import json
 
 # Collect epoch-level results from trainer log history
 epoch_results = []

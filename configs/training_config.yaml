@@ -1,0 +1,78 @@
+# ── Text-to-SQL Fine-Tuning Configuration ─────────────────────────────────────
+# Centralized hyperparameters used across training and evaluation.
+# See EXPERIMENT_LOG.md for the rationale behind each choice.
+
+# ── Model ─────────────────────────────────────────────────────────────────────
+model:
+  base_model: "meta-llama/Meta-Llama-3-8B-Instruct"
+  adapter_v1: "oLittle-five/llama3-8b-wikisql-qlora"
+  adapter_v2: "oLittle-five/llama3-8b-wikisql-qlora-v2"
+
+# ── Quantization ──────────────────────────────────────────────────────────────
+quantization:
+  load_in_4bit: true
+  bnb_4bit_quant_type: "nf4"
+  bnb_4bit_compute_dtype: "float16"
+
+# ── LoRA ──────────────────────────────────────────────────────────────────────
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  bias: "none"
+  task_type: "CAUSAL_LM"
+  target_modules:
+    - "q_proj"
+    - "k_proj"
+    - "v_proj"
+    - "o_proj"
+    - "gate_proj"
+    - "up_proj"
+    - "down_proj"
+
+# ── Training (V1 — best result) ──────────────────────────────────────────────
+training_v1:
+  num_train_epochs: 3
+  per_device_train_batch_size: 16
+  gradient_accumulation_steps: 2    # effective batch size = 32
+  learning_rate: 2.0e-4
+  max_seq_length: 256
+  fp16: true
+  logging_steps: 10
+  save_strategy: "epoch"
+  report_to: "wandb"
+  best_epoch: 1                     # val loss starts increasing after epoch 1
+
+# ── Generation (per-model optimal settings) ───────────────────────────────────
+generation:
+  base_model:
+    max_new_tokens: 128
+    do_sample: false
+    repetition_penalty: 1.0         # no penalty for base model
+    use_chat_prefix: false
+  fine_tuned_v1:
+    max_new_tokens: 128
+    do_sample: false
+    repetition_penalty: 1.3
+    use_chat_prefix: true           # must match SFTTrainer's auto-wrapping
+  rag:
+    max_new_tokens: 128
+    do_sample: false
+    repetition_penalty: 1.2         # lighter penalty for few-shot prompts
+    use_chat_prefix: false
+    top_k_examples: 3
+    embedding_model: "all-MiniLM-L6-v2"
+
+# ── Evaluation ────────────────────────────────────────────────────────────────
+evaluation:
+  dataset: "Salesforce/wikisql"
+  split: "test"
+  n_examples: 500                   # first 500 test examples
+  primary_metric: "execution_accuracy"
+  secondary_metric: "exact_match"
+
+# ── Results Summary ───────────────────────────────────────────────────────────
+# Base model (zero-shot):            37.2% exec accuracy, 21.8% syntax errors
+# RAG baseline (3-shot):             44.0% exec accuracy, 19.6% syntax errors
+# Fine-tuned v1 (chat template fix): 51.8% exec accuracy,  5.4% syntax errors
+# Fine-tuned v1 + COLLATE NOCASE:    68.2% exec accuracy,  5.4% syntax errors

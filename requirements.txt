@@ -2,7 +2,7 @@ torch>=2.1.0
 transformers>=4.40.0
 peft>=0.10.0
 trl>=0.8.0
-datasets
+datasets<3.0
 accelerate
 bitsandbytes
 wandb

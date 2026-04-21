@@ -506,6 +506,7 @@ while RAG is a viable low-effort baseline when retraining is not feasible.
 | `notebooks/09_error_analysis.ipynb` | Error categorization and visualization for v1-fixed model |
 | `notebooks/10_post_processing_ablation.ipynb` | Case-insensitive evaluation ablation (51.8% → 68.2%) |
 | `notebooks/11_rag_baseline.ipynb` | RAG few-shot baseline: retrieval + base model (44.0%) |
+| `notebooks/12_serving_demo.ipynb` | FastAPI serving demo on Colab T4 |
 
 ### Scripts and Source
 
@@ -520,6 +521,9 @@ while RAG is a viable low-effort baseline when retraining is not feasible.
 | `src/eval/error_analysis.py` | Failure categorization: syntax, column, agg, WHERE errors |
 | `src/rag/build_index.py` | Embed WikiSQL training examples into ChromaDB |
 | `src/rag/rag_pipeline.py` | Retrieve similar examples and build few-shot prompts |
+| `src/serving/app.py` | FastAPI endpoint: /predict, /predict/batch, /health |
+| `src/dashboard/streamlit_app.py` | Streamlit comparison dashboard |
+| `scripts/test_api.py` | Automated API endpoint tests |
 
 ### Results
 

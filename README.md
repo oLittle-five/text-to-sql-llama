@@ -68,10 +68,12 @@ text-to-sql-llama/
 │   ├── 08_verify_eval_pipeline.ipynb    # Verification: all results consistent under src/eval/
 │   ├── 09_error_analysis.ipynb          # Error categorization and visualization
 │   ├── 10_post_processing_ablation.ipynb  # Case-insensitive evaluation ablation
-│   └── 11_rag_baseline.ipynb            # RAG few-shot baseline (44.0%)
+│   ├── 11_rag_baseline.ipynb            # RAG few-shot baseline (44.0%)
+│   └── 12_serving_demo.ipynb           # FastAPI serving demo (Colab)
 ├── scripts/
 │   ├── fine_tune_v2.py                   # V2 training script (documented changes)
-│   └── eval_v2.py                        # Standalone V2 evaluation script
+│   ├── eval_v2.py                        # Standalone V2 evaluation script
+│   └── test_api.py                       # Automated API endpoint tests
 ├── results/                              # Predictions and metrics from each experiment
 ├── models/
 │   └── v2_adapter/                       # V2 LoRA adapter weights (local)
@@ -86,36 +88,63 @@ text-to-sql-llama/
 │   ├── rag/
 │   │   ├── build_index.py               # Embed training examples into ChromaDB
 │   │   └── rag_pipeline.py              # Retrieve similar examples → few-shot prompt
-│   ├── serving/                          # FastAPI serving endpoint (planned)
-│   └── dashboard/                        # Streamlit comparison UI (planned)
+│   ├── serving/
+│   │   ├── app.py                       # FastAPI endpoint (/predict, /predict/batch, /health)
+│   │   └── Dockerfile                   # GPU container for deployment
+│   └── dashboard/
+│       └── streamlit_app.py             # Side-by-side comparison UI
 ├── data/
 │   └── processed/                        # Train/val/test JSONL splits
-└── configs/
-    └── training_config.yaml              # Centralized hyperparameters (planned)
+├── configs/
+│   └── training_config.yaml              # Centralized hyperparameters
+├── Makefile                              # make data, make serve, make dashboard, etc.
+└── .github/workflows/lint.yml            # CI: ruff lint + format check
 ```
 
-## Setup
+## Quick Start
 
 ```bash
 pip install -r requirements.txt
+make help                          # show all available commands
 ```
-
-Key dependencies: `transformers`, `peft`, `bitsandbytes`, `trl`, `datasets`, `accelerate`, `torch`
 
 ## Usage
 
-**Data preparation**:
+**Data preparation** (local, no GPU):
 ```bash
-python src/data/prepare_dataset.py
+make data                          # download WikiSQL + convert to JSONL
 ```
 
 **Fine-tuning** (requires GPU — designed for Google Colab):
-Open `notebooks/02_fine_tune_v1.ipynb` or run `scripts/fine_tune_v2.py` in Colab.
+Open `notebooks/02_fine_tune_v1.ipynb` on Colab with a T4 or A100 runtime.
 
-**Evaluation**:
-Open `notebooks/04_eval_v1_fixed.ipynb` for the best configuration, or run:
+**Evaluation** (requires GPU):
+Open `notebooks/06_controlled_comparison.ipynb` for the definitive comparison,
+or `notebooks/04_eval_v1_fixed.ipynb` for the best fine-tuned result.
+
+**RAG baseline** (index locally, evaluate on Colab):
 ```bash
-python src/eval/execution_accuracy.py
+make rag-index                     # build ChromaDB vector index (~5 min, CPU)
+```
+Then open `notebooks/11_rag_baseline.ipynb` on Colab for the full evaluation.
+
+**API serving** (requires GPU):
+```bash
+make serve                         # start FastAPI at http://localhost:8000
+```
+Or see `notebooks/12_serving_demo.ipynb` to run on Colab. API docs at `/docs`.
+
+```bash
+curl -X POST http://localhost:8000/predict \
+  -H "Content-Type: application/json" \
+  -d '{"question": "How many people live in Tokyo?",
+       "columns": ["city", "country", "population"],
+       "types": ["text", "text", "real"]}'
+```
+
+**Dashboard** (local, no GPU):
+```bash
+make dashboard                     # open Streamlit at http://localhost:8501
 ```
 
 ## Trained Adapters (HuggingFace Hub)
